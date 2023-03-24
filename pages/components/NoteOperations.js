@@ -6,6 +6,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 const dbInstance = collection(database, 'notes');
+
 export default function NoteOperations({ getSingleNote }) {
     const [isInputVisible, setInputVisible] = useState(false);
     const [noteTitle, setNoteTitle] = useState('');
@@ -43,6 +44,7 @@ export default function NoteOperations({ getSingleNote }) {
     useEffect(() => {
         getNotes();
     }, [])
+
     return (
         <>
             <div className={styles.btnContainer}>
@@ -80,7 +82,8 @@ export default function NoteOperations({ getSingleNote }) {
             <div className={styles.notesDisplay}>
                 {notesArray.map((note) => {
                     return (
-                        <div
+                        <div 
+                            key={note.id}
                             className={styles.notesInner}
                             onClick={() => getSingleNote(note.id)}>
                             <h4>{note.noteTitle}</h4>

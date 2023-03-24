@@ -47,7 +47,7 @@ export default function NoteDetails({ ID }) {
 
     useEffect(() => {
         getSingleNote();
-    }, [ID])
+    }, [ID, getSingleNote])
 
     const editNote = (id) => {
         const collectionById = doc(database, 'notes', id)
