@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styles from '../styles/Evernote.module.scss'
 import { useAuth } from '../context/authContext'
-import NoteOperations from '../components/NoteOperations';
-import NoteDetails from '../components/NoteDetails';
+import NoteOperations from '../components/NoteOperations'
+import NoteDetails from '../components/NoteDetails'
 
 const Dashboard = () => {
     const { user } = useAuth()

@@ -4,11 +4,13 @@ import { database } from '../firebase';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 // import ReactQuill from 'react-quill';
 // import 'react-quill/dist/quill.snow.css';
+import { useAuth } from '../context/authContext'
 
 const dbInstance = collection(database, 'notes');
 
 export default function NoteOperations({ getSingleNote }) {
     const [isInputVisible, setInputVisible] = useState(false);
+    const { user } = useAuth()
     const [noteTitle, setNoteTitle] = useState('');
     const [noteDesc, setNoteDesc] = useState('');
     const [notesArray, setNotesArray] = useState([]);
@@ -22,8 +24,9 @@ export default function NoteOperations({ getSingleNote }) {
 
     const saveNote = () => {
         addDoc(dbInstance, {
+            noteAuthor: user.email,
             noteTitle: noteTitle,
-            noteDesc: noteDesc
+            noteDesc: noteDesc,
         })
             .then(() => {
                 setNoteTitle('')
