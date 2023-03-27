@@ -18,13 +18,6 @@ export default function NoteDetails({ ID }) {
     const [isEdit, setIsEdit] = useState(false);
     const [noteTitle, setNoteTitle] = useState('');
     const [noteDesc, setNoteDesc] = useState('');
-    const getSingleNote = async () => {
-        if (ID) {
-            const singleNote = doc(database, 'notes', ID)
-            const data = await getDoc(singleNote)
-            setSingleNote({ ...data.data(), id: data.id })
-        }
-    }
 
     const getNotes = () => {
         getDocs(dbInstance)
@@ -46,8 +39,16 @@ export default function NoteDetails({ ID }) {
     }, [])
 
     useEffect(() => {
+        const getSingleNote = async () => {
+            if (ID) {
+                const singleNote = doc(database, 'notes', ID)
+                const data = await getDoc(singleNote)
+                setSingleNote({ ...data.data(), id: data.id })
+            }
+        }
+        
         getSingleNote();
-    }, [ID, getSingleNote])
+    }, [ID, setSingleNote])
 
     const editNote = (id) => {
         const collectionById = doc(database, 'notes', id)
