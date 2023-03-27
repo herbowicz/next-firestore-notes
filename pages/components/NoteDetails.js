@@ -112,8 +112,8 @@ export default function NoteDetails({ ID }) {
             ) : (
                 <></>
             )}
-            <h2>{singleNote.noteTitle}</h2>
-            <div dangerouslySetInnerHTML={{ __html: singleNote.noteDesc }}></div>
+            <h2>{singleNote?.noteTitle}</h2>
+            <div dangerouslySetInnerHTML={{ __html: singleNote?.noteDesc }}></div>
         </>
     )
 }
