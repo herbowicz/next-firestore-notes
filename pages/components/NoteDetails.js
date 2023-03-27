@@ -9,8 +9,8 @@ import {
     updateDoc,
     deleteDoc
 } from 'firebase/firestore'
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css';
 const dbInstance = collection(database, 'notes');
 
 export default function NoteDetails({ ID }) {
@@ -91,12 +91,18 @@ export default function NoteDetails({ ID }) {
                         onChange={(e) => setNoteTitle(e.target.value)}
                         value={noteTitle}
                     />
-                    <div className={styles.ReactQuill}>
+                    <input
+                        className={styles.ReactQuill}
+                        placeholder='Your story..'
+                        onChange={(e) => setNoteDesc(e.target.value)}
+                        value={noteDesc}
+                    />
+                    {/* <div className={styles.ReactQuill}>
                         <ReactQuill
                             onChange={setNoteDesc}
                             value={noteDesc}
                         />
-                    </div>
+                    </div> */}
                     <button
                         onClick={() => editNote(singleNote.id)}
                         className={styles.saveBtn}>

@@ -2,8 +2,8 @@ import styles from '../../styles/Evernote.module.scss'
 import { useState, useEffect } from 'react';
 import { app, database } from '../../firebaseConfig';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css';
 
 const dbInstance = collection(database, 'notes');
 
@@ -63,12 +63,18 @@ export default function NoteOperations({ getSingleNote }) {
                         onChange={(e) => setNoteTitle(e.target.value)}
                         value={noteTitle}
                     />
-                    <div className={styles.ReactQuill}>
+                    <input
+                        className={styles.ReactQuill}
+                        placeholder='Your story..'
+                        onChange={(e) => addDesc(e.target.value)}
+                        value={noteDesc}
+                    />
+                    {/* <div className={styles.ReactQuill}>
                         <ReactQuill
                             onChange={addDesc}
                             value={noteDesc}
                         />
-                    </div>
+                    </div> */}
                     <button
                         onClick={saveNote}
                         className={styles.saveBtn}>
