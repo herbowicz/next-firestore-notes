@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { useAuth } from './AuthContext'
+import { useAuth } from '../context/authContext'
 
 const ProtectedRoute = ({ children }) => {
     const { user } = useAuth()

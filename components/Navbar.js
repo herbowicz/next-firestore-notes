@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import Link from 'next/link'
-import { useAuth } from './authContext'
+import { useAuth } from '../context/authContext'
 import { useRouter } from 'next/router'
 
 const NavbarComp = () => {
