@@ -66,7 +66,7 @@ export default function NoteOperations({ getSingleNote }) {
                         onChange={(e) => setNoteTitle(e.target.value)}
                         value={noteTitle}
                     />
-                    <input
+                    <textarea
                         className={styles.ReactQuill}
                         placeholder='Your story..'
                         onChange={(e) => addDesc(e.target.value)}

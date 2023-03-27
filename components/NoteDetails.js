@@ -92,7 +92,7 @@ export default function NoteDetails({ ID }) {
                         onChange={(e) => setNoteTitle(e.target.value)}
                         value={noteTitle}
                     />
-                    <input
+                    <textarea
                         className={styles.ReactQuill}
                         placeholder='Your story..'
                         onChange={(e) => setNoteDesc(e.target.value)}
