@@ -1,8 +1,8 @@
 import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from '../components/Navbar'
-import { AuthContextProvider } from '../context/AuthContext'
 import { useRouter } from 'next/router'
+import { AuthContextProvider } from '../components/AuthContext'
 import ProtectedRoute from '../components/ProtectedRoute'
 
 const noAuthRequired = ['/', '/login', '/signup']

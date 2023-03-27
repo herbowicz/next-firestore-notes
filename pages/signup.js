@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../components/AuthContext'
 
 const Signup = () => {
     const { user, signup } = useAuth()
