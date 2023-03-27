@@ -1,5 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { initializeFirestore } from 'firebase/firestore'
+import { initializeApp } from "firebase/app"
+import { getAuth } from "firebase/auth"
+import { initializeFirestore, setLogLevel } from 'firebase/firestore'
+
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -10,7 +12,12 @@ const firebaseConfig = {
     measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
-export const app = initializeApp(firebaseConfig);
-export const database = initializeFirestore(app, {
+setLogLevel('debug')
+
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
+const database = initializeFirestore(app, {
     experimentalForceLongPolling: true,
-});
+})
+
+export { auth, database }
