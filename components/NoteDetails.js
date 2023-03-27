@@ -1,6 +1,6 @@
-import styles from '../../styles/Evernote.module.scss'
+import styles from '../styles/Evernote.module.scss'
 import { useState, useEffect } from 'react'
-import { app, database } from '../../firebaseConfig';
+import { database } from '../firebase';
 import {
     doc,
     getDoc,
