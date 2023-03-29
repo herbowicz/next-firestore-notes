@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { useAuth } from '../context/authContext'
 
@@ -22,6 +22,12 @@ const Login = () => {
             console.log(err)
         }
     }
+
+    useEffect(() => {
+        if (user) {
+            router.push('/dashboard')
+        }
+    }, [router, user])
 
     return (
         <div
