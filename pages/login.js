@@ -23,11 +23,11 @@ const Login = () => {
         }
     }
 
-    useEffect(() => {
-        if (user) {
-            router.push('/dashboard')
-        }
-    }, [router, user])
+    // useEffect(() => {
+    //     if (user) {
+    //         router.push('/dashboard')
+    //     }
+    // }, [router, user])
 
     return (
         <div
