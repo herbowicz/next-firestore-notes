@@ -71,6 +71,8 @@ const Login = () => {
             <button name="google.com" onClick={e => socialLogin(e)}>Login with Google</button>
             {' '}
             <button name="github.com" onClick={e => socialLogin(e)}>Login with Github</button>
+            {' '}
+            <button name="facebook.com" onClick={e => socialLogin(e)}>Login with Facebook</button>
         </div>
     )
 }
