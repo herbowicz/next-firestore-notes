@@ -5,8 +5,8 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    GithubAuthProvider,
-    GoogleAuthProvider, signInWithPopup, signInWithRedirect,
+    signInWithPopup, signInWithRedirect,
+    GoogleAuthProvider, GithubAuthProvider, FacebookAuthProvider,
     fetchSignInMethodsForEmail, linkWithCredential
 } from 'firebase/auth'
 import { auth } from '../firebase'
