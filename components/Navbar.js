@@ -18,7 +18,10 @@ const NavbarComp = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         {user ? (
-                            <div>
+                            <>
+                                <Link href="/dashboard" passHref>
+                                    <Nav.Link>Dashboard</Nav.Link>
+                                </Link>
                                 <Nav.Link
                                     onClick={() => {
                                         logout()
@@ -27,7 +30,7 @@ const NavbarComp = () => {
                                 >
                                     Logout
                                 </Nav.Link>
-                            </div>
+                            </>
                         ) : (
                             <>
                                 <Link href="/signup" passHref>

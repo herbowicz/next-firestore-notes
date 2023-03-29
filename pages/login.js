@@ -5,7 +5,7 @@ import { useAuth } from '../context/authContext'
 
 const Login = () => {
     const router = useRouter()
-    const { user, login, glogin } = useAuth()
+    const { user, login, socialLogin } = useAuth()
     const [data, setData] = useState({
         email: '',
         password: '',
@@ -68,7 +68,9 @@ const Login = () => {
                 </Button>
             </Form>
             <hr />
-            <button onClick={ glogin }>Login with Google</button>
+            <button name="google.com" onClick={e => socialLogin(e)}>Login with Google</button>
+            {' '}
+            <button name="github.com" onClick={e => socialLogin(e)}>Login with Github</button>
         </div>
     )
 }

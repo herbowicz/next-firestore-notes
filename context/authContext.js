@@ -5,7 +5,9 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    GoogleAuthProvider, signInWithPopup 
+    GithubAuthProvider,
+    GoogleAuthProvider, signInWithPopup, signInWithRedirect,
+    fetchSignInMethodsForEmail, linkWithCredential
 } from 'firebase/auth'
 import { auth } from '../firebase'
 
@@ -17,8 +19,6 @@ export const AuthContextProvider = ({
     children,
 }) => {
     const router = useRouter()
-    const provider = new GoogleAuthProvider()
-
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
     console.log(user)
@@ -53,31 +53,62 @@ export const AuthContextProvider = ({
         await signOut(auth)
     }
 
-    const glogin = () => {
+    function getProvider(provider) {
+        switch (provider) {
+            case 'google.com':
+                return new GoogleAuthProvider()
+            case 'github.com':
+                return new GithubAuthProvider()
+            case 'facebook.com':
+                return new FacebookAuthProvider()
+            default:
+                throw new Error(`No provider implemented for ${provider}`);
+        }
+    }
+
+    const socialLogin = (e) => {
+        const { target: { name } } = e;
+        let provider = getProvider(name)
+
         signInWithPopup(auth, provider)
             .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result)
+                const credential = provider.constructor.credentialFromResult(result)
                 const token = credential?.accessToken
-                // The signed-in user info.
                 const user = result.user
                 console.log({ credential, token, user })
                 router.push('/dashboard')
             })
             .catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code
-                const errorMessage = error.message
-                // The email of the user's account used.
-                const email = error.email
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error)
-                console.log({ errorCode, errorMessage, email, credential })
+                const email = error.customData.email
+                const credential = provider.constructor.credentialFromError(error)
+
+                if (error.code === 'auth/account-exists-with-different-credential') {
+                    console.log('Account exists with different credential')
+
+                    const login = async () => {
+                        try {
+                            const methods = await fetchSignInMethodsForEmail(auth, email)
+
+                            if (methods[0] === 'password') {
+                                var password = promptUserForPassword();
+                                await signInWithEmailAndPassword(email, password)
+                            } else {
+                                await signInWithRedirect(auth, getProvider(methods[0]))
+                            }
+
+                            linkWithCredential(credential)
+                        } catch (err) {
+                            console.log(err)
+                        }
+                    }
+                    login()
+                    router.push('/dashboard')
+                }
             })
-    } 
+    }
 
     return (
-        <AuthContext.Provider value={{ user, login, signup, logout, glogin }}>
+        <AuthContext.Provider value={{ user, login, signup, logout, socialLogin }}>
             {loading ? null : children}
         </AuthContext.Provider>
     )
