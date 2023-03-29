@@ -76,13 +76,17 @@ export const AuthContextProvider = ({
                 const token = credential?.accessToken
                 const user = result.user
                 console.log({ credential, token, user })
+
                 router.push('/dashboard')
             })
             .catch((error) => {
+                const errorCode = error.code
                 const email = error.customData.email
+                const errorMessage = error.message
                 const credential = provider.constructor.credentialFromError(error)
+                console.log({errorCode, errorMessage, email, credential})
 
-                if (error.code === 'auth/account-exists-with-different-credential') {
+                if (errorCode === 'auth/account-exists-with-different-credential') {
                     console.log('Account exists with different credential')
 
                     const login = async () => {
