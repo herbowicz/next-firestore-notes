@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from '../styles/Evernote.module.scss'
+import { Container, Row, Col } from 'react-bootstrap'
 import { useAuth } from '../context/authContext'
 import NoteOperations from '../components/NoteOperations'
 import NoteDetails from '../components/NoteDetails'
@@ -13,30 +13,27 @@ const Dashboard = () => {
 
     return (
         <>
-            <p>This route is protected</p>
-            <h5>You are logged in as: {user.email}</h5>
-            <p>Your ID is: {user.uid}</p>
+            <title>herbowicz.vercel.app</title>
+            <meta name="description" content="This is a herbowicz.vercel app" />
+            <link rel="icon" href="/favicon.ico" />
 
-            <hr />
-
-            <div className={styles.container}>
-                <div>
-                    <title>Evernote Clone</title>
-                    <meta name="description" content="This is an Evernote Clone" />
-                    <link rel="icon" href="/favicon.ico" />
-                </div>
-
-                <main>
-                    <div className={styles.container}>
-                        <div className={styles.left}>
-                            <NoteOperations getSingleNote={getSingleNote} />
-                        </div>
-                        <div className={styles.right}>
-                            <NoteDetails ID={ID} />
-                        </div>
+            <Container>
+                <Row>
+                    <div>
+                        <h5>You are logged in as: {user.email}</h5>
+                        This route is protected. Your ID is: {user.uid}
+                        <hr />
                     </div>
-                </main>
-            </div>
+                </Row>
+                <Row>
+                    <Col md>
+                        <NoteOperations getSingleNote={getSingleNote} />
+                    </Col>
+                    <Col md>
+                        <NoteDetails ID={ID} />
+                    </Col>
+                </Row>
+            </Container>
         </>
     )
 }

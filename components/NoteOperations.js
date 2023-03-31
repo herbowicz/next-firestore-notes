@@ -1,10 +1,9 @@
-import styles from '../styles/Evernote.module.scss'
 import { useState, useEffect } from 'react';
 import { database } from '../firebase';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
-// import ReactQuill from 'react-quill';
-// import 'react-quill/dist/quill.snow.css';
+import { Button, Stack } from 'react-bootstrap'
 import { useAuth } from '../context/authContext'
+import Note from  './Note'
 
 const dbInstance = collection(database, 'notes');
 
@@ -22,17 +21,19 @@ export default function NoteOperations({ getSingleNote }) {
         setNoteDesc(value)
     }
 
-    const saveNote = () => {
+    const saveNote = (e, title, desc) => {
+        e.preventDefault()
         addDoc(dbInstance, {
             noteAuthor: user.email,
-            noteTitle: noteTitle,
-            noteDesc: noteDesc,
+            noteTitle: title,
+            noteDesc: desc,
         })
             .then(() => {
                 setNoteTitle('')
                 setNoteDesc('')
                 getNotes();
             })
+        setInputVisible(false)
     }
 
     const getNotes = () => {
@@ -50,56 +51,27 @@ export default function NoteOperations({ getSingleNote }) {
 
     return (
         <>
-            <div className={styles.btnContainer}>
-                <button
-                    onClick={inputToggle}
-                    className={styles.button}>
-                    Add a New Note
-                </button>
-            </div>
+            <Button onClick={inputToggle}>
+                Add a New Note
+            </Button>
 
-            {isInputVisible ? (
-                <div className={styles.inputContainer}>
-                    <input
-                        className={styles.input}
-                        placeholder='Enter the Title..'
-                        onChange={(e) => setNoteTitle(e.target.value)}
-                        value={noteTitle}
-                    />
-                    <textarea
-                        className={styles.ReactQuill}
-                        placeholder='Your story..'
-                        onChange={(e) => addDesc(e.target.value)}
-                        value={noteDesc}
-                    />
-                    {/* <div className={styles.ReactQuill}>
-                        <ReactQuill
-                            onChange={addDesc}
-                            value={noteDesc}
-                        />
-                    </div> */}
-                    <button
-                        onClick={saveNote}
-                        className={styles.saveBtn}>
-                        Save Note
-                    </button>
+            {isInputVisible && (
+                <div>
+                    <Note mode= 'save' submit={saveNote} />
                 </div>
-            ) : (
-                <></>
             )}
 
-            <div className={styles.notesDisplay}>
+            <Stack className='mt-3'>
                 {notesArray.map((note) => {
                     return (
                         <div 
                             key={note.id}
-                            className={styles.notesInner}
                             onClick={() => getSingleNote(note.id)}>
                             <h4>{note.noteTitle}</h4>
                         </div>
                     )
                 })}
-            </div>
+            </Stack>
         </>
     )
 }

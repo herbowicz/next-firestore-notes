@@ -1,4 +1,3 @@
-import styles from '../styles/Evernote.module.scss'
 import { useState, useEffect } from 'react'
 import { database } from '../firebase';
 import {
@@ -9,15 +8,16 @@ import {
     updateDoc,
     deleteDoc
 } from 'firebase/firestore'
-// import ReactQuill from 'react-quill';
-// import 'react-quill/dist/quill.snow.css';
+import { Button } from 'react-bootstrap'
+import Note from  './Note'
+
 const dbInstance = collection(database, 'notes');
 
 export default function NoteDetails({ ID }) {
     const [singleNote, setSingleNote] = useState({})
     const [isEdit, setIsEdit] = useState(false);
-    const [noteTitle, setNoteTitle] = useState('');
-    const [noteDesc, setNoteDesc] = useState('');
+    const [title, setNoteTitle] = useState('');
+    const [desc, setNoteDesc] = useState('');
 
     const getNotes = () => {
         getDocs(dbInstance)
@@ -29,7 +29,7 @@ export default function NoteDetails({ ID }) {
     }
 
     const getEditData = () => {
-        setIsEdit(true);
+        setIsEdit(!isEdit);
         setNoteTitle(singleNote.noteTitle);
         setNoteDesc(singleNote.noteDesc)
     }
@@ -50,12 +50,15 @@ export default function NoteDetails({ ID }) {
         getSingleNote();
     }, [ID, setSingleNote])
 
-    const editNote = (id) => {
-        const collectionById = doc(database, 'notes', id)
+    const editNote = (e, title, desc) => {
+        e.preventDefault()
+        const collectionById = doc(database, 'notes', singleNote.id)
+
+        console.log(title, desc)
 
         updateDoc(collectionById, {
-            noteTitle: noteTitle,
-            noteDesc: noteDesc,
+            noteTitle: title,
+            noteDesc: desc,
         })
             .then(() => {
                 window.location.reload()
@@ -73,49 +76,27 @@ export default function NoteDetails({ ID }) {
     return (
         <>
             <div>
-                <button
-                    className={styles.editBtn}
-                    onClick={getEditData}
-                >Edit
-                </button>
-                <button
-                    className={styles.deleteBtn}
-                    onClick={() => deleteNote(singleNote.id)}
-                >Delete
-                </button>
+                <Button onClick={getEditData} variant="success">
+                    Edit
+                </Button>
+                {' '}
+                <Button onClick={() => deleteNote(singleNote.id)} variant="danger">
+                    Delete
+                </Button>
             </div>
             {isEdit ? (
-                <div className={styles.inputContainer}>
-                    <input
-                        className={styles.input}
-                        placeholder='Enter the Title..'
-                        onChange={(e) => setNoteTitle(e.target.value)}
-                        value={noteTitle}
-                    />
-                    <textarea
-                        className={styles.ReactQuill}
-                        placeholder='Your story..'
-                        onChange={(e) => setNoteDesc(e.target.value)}
-                        value={noteDesc}
-                    />
-                    {/* <div className={styles.ReactQuill}>
-                        <ReactQuill
-                            onChange={setNoteDesc}
-                            value={noteDesc}
-                        />
-                    </div> */}
-                    <button
-                        onClick={() => editNote(singleNote.id)}
-                        className={styles.saveBtn}>
-                        Update Note
-                    </button>
+                <div className='m-2'>
+                    <Note mode='update' submit={editNote} content={{title, desc}}/>
                 </div>
             ) : (
-                <></>
+                <>
+                    <div className='mt-3'>
+                        <h6>By {singleNote?.noteAuthor}</h6>
+                        <h1>{singleNote?.noteTitle}</h1>
+                        <div dangerouslySetInnerHTML={{ __html: singleNote?.noteDesc }}></div>
+                    </div>
+                </>
             )}
-            <p>By {singleNote?.noteAuthor}</p>
-            <h2>{singleNote?.noteTitle}</h2>
-            <div dangerouslySetInnerHTML={{ __html: singleNote?.noteDesc }}></div>
         </>
     )
 }
