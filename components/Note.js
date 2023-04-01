@@ -34,7 +34,7 @@ const Note = ({ mode, submit, content }) => {
                         value={ desc }></Form.Control>
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button className='mt-2' variant="primary" type="submit">
                     {mode === 'update' ? 'Update' : 'Save'} Note
                 </Button>
             </Form>

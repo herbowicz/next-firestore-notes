@@ -18,19 +18,10 @@ const Dashboard = () => {
             <link rel="icon" href="/favicon.ico" />
 
             <Container>
+                <h3><p>Dashboard</p></h3>
                 <Row>
-                    <div>
-                        <h5>You are logged in as: {user.email}</h5>
-                        This route is protected. Your ID is: {user.uid}
-                        <hr />
-                    </div>
-                </Row>
-                <Row>
-                    <Col md>
-                        <NoteOperations getSingleNote={getSingleNote} />
-                    </Col>
-                    <Col md>
-                        <NoteDetails ID={ID} />
+                    <Col>
+                        <NoteOperations getSingleNote={getSingleNote} ID={ID} />
                     </Col>
                 </Row>
             </Container>

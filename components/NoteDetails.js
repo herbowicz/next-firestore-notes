@@ -75,28 +75,28 @@ export default function NoteDetails({ ID }) {
     }
     return (
         <>
-            <div>
-                <Button onClick={getEditData} variant="success">
-                    Edit
-                </Button>
-                {' '}
-                <Button onClick={() => deleteNote(singleNote.id)} variant="danger">
-                    Delete
-                </Button>
-            </div>
             {isEdit ? (
-                <div className='m-2'>
+                <div>
                     <Note mode='update' submit={editNote} content={{title, desc}}/>
                 </div>
             ) : (
                 <>
-                    <div className='mt-3'>
+                    <div>
                         <h6>By {singleNote?.noteAuthor}</h6>
                         <h1>{singleNote?.noteTitle}</h1>
                         <div dangerouslySetInnerHTML={{ __html: singleNote?.noteDesc }}></div>
                     </div>
                 </>
             )}
+            <div className='my-2'>
+                <Button onClick={getEditData} variant="success">
+                    {isEdit ? 'Close' : 'Edit'}
+                </Button>
+                {' '}
+                <Button onClick={() => deleteNote(singleNote.id)} variant="danger">
+                    Delete
+                </Button>
+            </div>
         </>
     )
 }
