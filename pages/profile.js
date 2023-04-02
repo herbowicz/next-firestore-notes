@@ -1,6 +1,7 @@
-import { Container, Col, Row } from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
 import { useAuth } from '../context/authContext'
 import UploadFile from '../components/UploadFile'
+import ShowFiles from '../components/ShowFiles'
 
 const Profile = () => {
     const { user } = useAuth()
@@ -9,6 +10,9 @@ const Profile = () => {
         <Container>
             <h3><p>Profile</p></h3>
             <Row>
+                <h4>{user.displayName}</h4>
+            </Row>
+            <Row>
                 You are logged in as: {user.email}
             </Row>
             <Row>
@@ -16,6 +20,9 @@ const Profile = () => {
             </Row>
             <Row className="w-25 p-3">
                 <UploadFile  />
+            </Row>
+            <Row>
+                <ShowFiles />
             </Row>
         </Container>
     )

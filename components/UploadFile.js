@@ -1,40 +1,35 @@
-// to learn how to download a file, get/use file metadata, delete files, and list files see https://firebase.google.com/docs/storage/web/start
+// https://firebase.google.com/docs/storage/web/start
 import { useRef, useState } from 'react'
 import {
     getStorage,
     ref,
     uploadBytesResumable,
 } from "firebase/storage";
+import { useAuth } from '../context/authContext'
 
 const storage = getStorage()
 
 const UploadFile = () => {
+    const { user } = useAuth()
     const inputEl = useRef(null)
     let [value, setValue] = useState(0)
 
     function uploadFile() {
-        // get file
+
         var file = inputEl.current.files[0]
-
-        // create a storage ref
-        const storageRef = ref(storage, "user_uploads" + file.name)
-
-        // upload file
+        const storageRef = ref(storage, `users\//${user.uid}\//${file.name}`)
         const task = uploadBytesResumable(storageRef, file)
-
-        // update progress bar
+        
         task.on('state_change',
-
             function progress(snapshot) {
                 setValue((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
             },
-
             function error(err) {
                 alert(err)
             },
-
             function complete() {
-                alert('Uploaded to firebase storage successfully!')
+                alert('File uploaded successfully!')
+                window.location.reload()
             }
         )
     }
