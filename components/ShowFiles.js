@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { getStorage, ref, getDownloadURL, listAll, deleteObject } from "firebase/storage";
+import { auth } from '../firebase'
 import { useAuth } from '../context/authContext'
 import { Button } from 'react-bootstrap'
 
-const storage = getStorage();
+const storage = getStorage()
 
 const ShowFiles = () => {
-    const { user } = useAuth()
-    const [url, setUrl] = useState()
+    const { user, updatePhotoURL } = useAuth()
     const [data, setData] = useState([])
+    const [url, setUrl] = useState()
 
     // useEffect(() => {
     //     const pathReference = ref(storage, `users/${user.uid}/170.png`);
@@ -33,14 +34,18 @@ const ShowFiles = () => {
 
         const loadImages = async () => {
             const urls = await fetchImages();
-            console.log(urls)
             setData(urls);
+
+            console.log('>', auth.currentUser)
         };
 
         loadImages()
     }, [user.uid])
 
-    const selectImage = url => setUrl(url)
+    const selectImage = url => {
+        setUrl(url)
+        updatePhotoURL(url)
+    }
 
     const deleteImage = (url) => {
         console.log(url)
@@ -57,12 +62,14 @@ const ShowFiles = () => {
     return (
         <>
             <p>
-                {url && <Image src={url} alt='' width='300' height='300' />}
+
+                {data[0] && <Image src={ url || user.photoURL || data[0] } alt='' width='300' height='300' />} 
+                
             </p>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
                 {data?.map((url, i) => {
                     return (
-                        <div key={i} style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginRight: 10}}>
+                        <div key={i} style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginRight: 10 }}>
                             <Image onClick={() => selectImage(url)} key={i} src={url} alt='' width='100' height='100' />
                             <Button style={{ marginLeft: -34, zIndex: 5 }} onClick={() => deleteImage(url)} variant="danger">
                                 x

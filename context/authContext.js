@@ -30,6 +30,7 @@ export const AuthContextProvider = ({
                     uid: user.uid,
                     email: user.email,
                     displayName: user.displayName,
+                    photoURL: user.photoURL
                 })
             } else {
                 setUser(null)
@@ -84,7 +85,7 @@ export const AuthContextProvider = ({
                 const email = error.customData.email
                 const errorMessage = error.message
                 const credential = provider.constructor.credentialFromError(error)
-                console.log({errorCode, errorMessage, email, credential})
+                console.log({ errorCode, errorMessage, email, credential })
 
                 if (errorCode === 'auth/account-exists-with-different-credential') {
                     console.log('Account exists with different credential')
@@ -111,8 +112,12 @@ export const AuthContextProvider = ({
             })
     }
 
+    const updatePhotoURL = url => {
+        setUser({ ...user, photoURL: url })
+    }
+
     return (
-        <AuthContext.Provider value={{ user, login, signup, logout, socialLogin }}>
+        <AuthContext.Provider value={{ user, login, signup, logout, socialLogin, updatePhotoURL }}>
             {loading ? null : children}
         </AuthContext.Provider>
     )

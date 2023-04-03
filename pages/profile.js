@@ -18,11 +18,11 @@ const Profile = () => {
             <Row>
                 Your ID is: {user.uid}
             </Row>
-            <Row className="w-25 p-3">
-                <UploadFile  />
-            </Row>
             <Row>
                 <ShowFiles />
+            </Row>
+            <Row className="w-25 p-3">
+                <UploadFile  />
             </Row>
         </Container>
     )
