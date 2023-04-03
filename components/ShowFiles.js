@@ -13,18 +13,18 @@ const ShowFiles = () => {
     const [url, setUrl] = useState()
 
     // useEffect(() => {
-    //     const pathReference = ref(storage, `users/${user.uid}/170.png`);
+    //     const pathReference = ref(storage, `users/${user.email}/170.png`);
 
     //     getDownloadURL(pathReference)
     //         .then((path) =>  {
     //             setUrl(path)
     //             console.log(path)
     //         })
-    // }, [user.uid])
+    // }, [user.email])
 
     useEffect(() => {
         const fetchImages = async () => {
-            const storageRef = ref(storage, `users/${user.uid}`)
+            const storageRef = ref(storage, `users/${user.email}`)
             const result = await listAll(storageRef);
 
             const urlPromises = result.items.map((imageRef) => getDownloadURL(imageRef));
@@ -40,7 +40,7 @@ const ShowFiles = () => {
         };
 
         loadImages()
-    }, [user.uid])
+    }, [user.email])
 
     const selectImage = url => {
         setUrl(url)
@@ -63,7 +63,7 @@ const ShowFiles = () => {
         <>
             <p>
 
-                {data[0] && <Image src={ url || user.photoURL || data[0] } alt='' width='300' height='300' />} 
+                {(data[0] || user.photoURL) && <Image src={ url || user.photoURL || data[0] } alt='' width='300' height='300' />} 
                 
             </p>
             <div style={{ display: 'flex', flexDirection: 'row' }}>

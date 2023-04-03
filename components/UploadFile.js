@@ -16,7 +16,7 @@ const UploadFile = () => {
     function uploadFile() {
 
         var file = inputEl.current.files[0]
-        const storageRef = ref(storage, `users\//${user.uid}\//${file.name}`)
+        const storageRef = ref(storage, `users\//${user.email}\//${file.name}`)
         const task = uploadBytesResumable(storageRef, file)
         
         task.on('state_change',
