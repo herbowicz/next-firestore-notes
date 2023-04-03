@@ -38,12 +38,14 @@ export default function UserDetails() {
         getUser();
     }, [user, setUserDetails])
 
-    useEffect(() => setPoints(userDetails?.points), [userDetails])
-    useEffect(() => setContent({
-        title: userDetails?.title || '',
-        desc: userDetails?.desc || '',
-        about: userDetails?.about || ''
-    }), [userDetails])
+    useEffect(() => {
+        setContent({
+            title: userDetails?.title || '',
+            desc: userDetails?.desc || '',
+            about: userDetails?.about || ''
+        })
+        setPoints(userDetails?.points || 0)
+    }, [userDetails])
 
     console.log('UDetails content')
 
