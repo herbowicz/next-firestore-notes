@@ -19,11 +19,11 @@ export default function UserDetails() {
     const { user } = useAuth()
     const [userDetails, setUserDetails] = useState()
     const [isEdit, setIsEdit] = useState(false);
-    const [points, setPoints] = useState(user.points || 0);
+    const [points, setPoints] = useState(0);
 
     const [content, setContent] = useState({
-        title: user.title || '',
-        desc: user.desc || ''
+        title: userDetails?.title || '',
+        desc: userDetails?.desc || ''
     })
 
     const getEditData = () => {
@@ -37,12 +37,13 @@ export default function UserDetails() {
                 const userData= doc(database, 'users', user?.email)
                 const data = await getDoc(userData)
                 setUserDetails(data.data())
-                setPoints(data.data()?.points)
             }
         }
         
         getUser();
     }, [user, setUserDetails])
+
+    useEffect(() => setPoints(userDetails?.points), [userDetails])
 
 
     const updateUser = (e, content) => {
@@ -81,10 +82,6 @@ export default function UserDetails() {
             <div className='my-2'>
                 <Button onClick={getEditData} variant="success">
                     {isEdit ? 'Close' : 'Edit'}
-                </Button>
-                {' '}
-                <Button onClick={(e) => updateUser(e)}>
-                    Update
                 </Button>
             </div>
         </>
