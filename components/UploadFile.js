@@ -1,4 +1,3 @@
-// https://firebase.google.com/docs/storage/web/start
 import { useRef, useState } from 'react'
 import {
     getStorage,

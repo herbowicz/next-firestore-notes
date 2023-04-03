@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 import { useAuth } from '../context/authContext'
+import { Button } from 'react-bootstrap'
 
 const storage = getStorage();
 
@@ -39,11 +40,37 @@ const ShowFiles = () => {
         loadImages()
     }, [user.uid])
 
-    const selectImage = e => console.log (e.target.srcset)
+    const selectImage = url => setUrl(url)
+
+    const deleteImage = (url) => {
+        console.log(url)
+
+        const delRef = ref(storage, url)
+        deleteObject(delRef).then(() => {
+            alert('File deleted successfully')
+            window.location.reload()
+        }).catch((error) => {
+            alert(error)
+        });
+    }
 
     return (
         <>
-            {data?.map((url, i) => <Image onClick={selectImage} key={i} src={url} alt='' width='200' height='200' />)}
+            <p>
+                {url && <Image src={url} alt='' width='300' height='300' />}
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                {data?.map((url, i) => {
+                    return (
+                        <div key={i} style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginRight: 10}}>
+                            <Image onClick={() => selectImage(url)} key={i} src={url} alt='' width='100' height='100' />
+                            <Button style={{ marginLeft: -34, zIndex: 5 }} onClick={() => deleteImage(url)} variant="danger">
+                                x
+                            </Button>
+                        </div>
+                    )
+                })}
+            </div>
         </>
     )
 
