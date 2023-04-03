@@ -3,17 +3,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const UserForm = ({ submit, data }) => {
-
-    const [content, setContent] = useState({
-        title: data?.title || '',
-        desc: data?.desc || '', 
-        about: data?.about || '',
-    })
+    const [content, setContent] = useState(data)
 
     const updateContent = (e, key) => {
         e.preventDefault()
         setContent({ ...content, [key]: e.target.value })
     }
+
 
     console.log('content keys', Object.keys(content))
 

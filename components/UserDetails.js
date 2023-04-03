@@ -13,18 +13,13 @@ import { Button } from 'react-bootstrap'
 import { useAuth } from '../context/authContext'
 import UserForm from './UserForm'
 
-const dbInstance = collection(database, 'users');
-
 export default function UserDetails() {
     const { user } = useAuth()
     const [userDetails, setUserDetails] = useState()
     const [isEdit, setIsEdit] = useState(false);
     const [points, setPoints] = useState(0);
 
-    const [content, setContent] = useState({
-        title: userDetails?.title || '',
-        desc: userDetails?.desc || ''
-    })
+    const [content, setContent] = useState({})
 
     const getEditData = () => {
         setIsEdit(!isEdit);
@@ -44,7 +39,13 @@ export default function UserDetails() {
     }, [user, setUserDetails])
 
     useEffect(() => setPoints(userDetails?.points), [userDetails])
+    useEffect(() => setContent({
+        title: userDetails?.title || '',
+        desc: userDetails?.desc || '',
+        about: userDetails?.about || ''
+    }), [userDetails])
 
+    console.log('UDetails content')
 
     const updateUser = (e, content) => {
         e.preventDefault()
