@@ -1,28 +1,14 @@
 import { Container, Row } from 'react-bootstrap'
-import { useAuth } from '../context/authContext'
-import UploadFile from '../components/UploadFile'
-import ShowFiles from '../components/ShowFiles'
+import UserDetails from '../components/UserDetails'
 
 const Profile = () => {
-    const { user } = useAuth()
 
     return (
         <Container>
-            <h3><p>Profile</p></h3>
+            <h3>Profile</h3>
+            <hr />
             <Row>
-                <h4>{user.displayName}</h4>
-            </Row>
-            <Row>
-                You are logged in as: {user.email}
-            </Row>
-            <Row>
-                Your ID is: {user.uid}
-            </Row>
-            <Row>
-                <ShowFiles />
-            </Row>
-            <Row className="w-25 p-3">
-                <UploadFile  />
+                <UserDetails />
             </Row>
         </Container>
     )

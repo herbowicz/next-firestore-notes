@@ -25,6 +25,10 @@ const NavbarComp = () => {
                                 <Link href="/profile" passHref>
                                     <Nav.Link>Profile</Nav.Link>
                                 </Link>
+                                <Link href="/documents" passHref>
+                                    <Nav.Link>Documents</Nav.Link>
+                                </Link>
+
                                 <Nav.Link
                                     onClick={() => {
                                         logout()

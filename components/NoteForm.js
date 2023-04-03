@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const Note = ({ mode, submit, content }) => {
+const NoteForm = ({ mode, submit, content }) => {
 
     const [title, setTitle] = useState(content?.title || '');
     const [desc, setDesc] = useState(content?.desc || '');
@@ -42,4 +42,4 @@ const Note = ({ mode, submit, content }) => {
     );
 }
 
-export default Note
+export default NoteForm

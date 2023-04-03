@@ -3,7 +3,7 @@ import { database } from '../firebase';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { Button, Accordion } from 'react-bootstrap'
 import { useAuth } from '../context/authContext'
-import Note from './Note'
+import NoteForm from './NoteForm'
 import NoteDetails from './NoteDetails'
 
 const dbInstance = collection(database, 'notes');
@@ -17,8 +17,6 @@ export default function NoteOperations({ getSingleNote, ID }) {
     const inputToggle = () => {
         setInputVisible(!isInputVisible)
     }
-
-
 
     const saveNote = (e, title, desc) => {
         e.preventDefault()
@@ -56,7 +54,7 @@ export default function NoteOperations({ getSingleNote, ID }) {
 
             {isInputVisible && (
                 <div>
-                    <Note mode='save' submit={saveNote} />
+                    <NoteForm mode='save' submit={saveNote} />
                 </div>
             )}
 

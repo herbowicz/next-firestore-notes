@@ -9,7 +9,7 @@ import {
     deleteDoc
 } from 'firebase/firestore'
 import { Button } from 'react-bootstrap'
-import Note from  './Note'
+import NoteForm from  './NoteForm'
 
 const dbInstance = collection(database, 'notes');
 
@@ -77,7 +77,7 @@ export default function NoteDetails({ ID }) {
         <>
             {isEdit ? (
                 <div>
-                    <Note mode='update' submit={editNote} content={{title, desc}}/>
+                    <NoteForm mode='update' submit={editNote} content={{title, desc}}/>
                 </div>
             ) : (
                 <>
