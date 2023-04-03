@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { database } from '../firebase';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { useState, useEffect } from 'react'
 import { Button, Accordion } from 'react-bootstrap'
+import { collection, addDoc, getDocs } from 'firebase/firestore'
+import { database } from '../firebase'
 import { useAuth } from '../context/authContext'
 import NoteForm from './NoteForm'
 import NoteDetails from './NoteDetails'
@@ -38,12 +38,12 @@ export default function NoteOperations({ getSingleNote, ID }) {
             .then((data) => {
                 setNotesArray(data.docs.map((item) => {
                     return { ...item.data(), id: item.id }
-                }));
+                }))
             })
     }
 
     useEffect(() => {
-        getNotes();
+        getNotes()
     }, [])
 
     return (
