@@ -17,35 +17,15 @@ const Home = () => {
 	}, [])
 
 	return (
-		<Container>
-			<h3>Hall of Fame</h3>
-			<hr />
-			<Table striped bordered hover>
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Name</th>
-						<th>Title</th>
-						<th>Points</th>
-					</tr>
-				</thead>
-				<tbody>
-					{users
-						.sort((a, b) => (a.points < b.points) ? 1 : -1)
-						.map((el, i) => (
-							<tr key={i}>
-								<td>{i + 1}</td>
-								<td>
-									<Image src={el.photoURL} width='22' height='22' alt=''/>{' '}
-									{el.displayName || el.email}
-								</td>
-								<td>{el.title || '[No Title]'}</td>
-								<td>{el.points}</td>
-							</tr>
-						))}
-				</tbody>
-			</Table>
-		</Container>
+		<div
+            style={{
+                width: '40%',
+                margin: 'auto',
+            }}
+        >
+            <h1 className="text-center my-3 ">Hello!</h1>
+			<p className="text-center">Login or Signup to continue...</p>
+		</div>
 	)
 }
 

@@ -36,7 +36,7 @@ const ShowFiles = () => {
             const urls = await fetchImages();
             setData(urls);
 
-            console.log('>', auth.currentUser)
+            console.log(auth.currentUser)
         };
 
         loadImages()

@@ -25,7 +25,7 @@ const Login = () => {
 
     // useEffect(() => {
     //     if (user) {
-    //         router.push('/dashboard')
+    //         router.push('/notes')
     //     }
     // }, [router, user])
 

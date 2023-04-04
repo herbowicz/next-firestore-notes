@@ -9,9 +9,11 @@ import {
     setDoc,
     deleteDoc
 } from 'firebase/firestore'
-import { Button } from 'react-bootstrap'
+import { Button, Col, Row } from 'react-bootstrap'
 import { useAuth } from '../context/authContext'
 import UserForm from './UserForm'
+
+const uneditable = ['uid', 'photoURL', 'email']
 
 export default function UserDetails() {
     const { user } = useAuth()
@@ -35,7 +37,7 @@ export default function UserDetails() {
             }
         }
         
-        getUser();
+        getUser()
     }, [user, setUserDetails])
 
     useEffect(() => {
@@ -47,14 +49,12 @@ export default function UserDetails() {
         setPoints(userDetails?.points || 0)
     }, [userDetails])
 
-    console.log('UDetails content')
 
     const updateUser = (e, content) => {
         e.preventDefault()
         const collectionById = doc(database, 'users', user.email)
 
         const data = {...user, ...content, points}
-        console.log({data})
 
         setDoc(collectionById, data)
             .then(() => {
@@ -67,19 +67,20 @@ export default function UserDetails() {
     return (
         <>
             {isEdit ? (
-                <div>
+                <>
                     <UserForm submit={updateUser} data={content} />
-                </div>
+                </>
             ) : (
                 <>
-                    <div>
-                        <h6>{userDetails?.uid}</h6>
-                        <h1>{userDetails?.displayName}</h1>
-                        <h2>Points: {points}</h2>
-                        <div>{userDetails?.email}</div>
-                        <hr />
-                        {JSON.stringify(userDetails)}
-                    </div>
+                    {userDetails && Object.entries(userDetails)
+                        .filter(([key]) => !uneditable.includes(key))
+                        .map(([key, value], i) => (
+                            <Row key={i}>
+                                <Col> {key} </Col>
+                                <Col> {value} </Col>
+                            </Row>
+                        ))
+                    }
                 </>
             )}
             <div className='my-2'>
@@ -90,4 +91,3 @@ export default function UserDetails() {
         </>
     )
 }
-
