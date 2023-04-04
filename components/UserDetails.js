@@ -42,9 +42,9 @@ export default function UserDetails() {
 
     useEffect(() => {
         setContent({
-            title: userDetails?.title || '',
-            desc: userDetails?.desc || '',
-            about: userDetails?.about || ''
+            nickname: userDetails?.nickname || '',
+            about: userDetails?.about || '',
+            role: userDetails?.role || '',
         })
         setPoints(userDetails?.points || 0)
     }, [userDetails])

@@ -33,14 +33,17 @@ const NavbarComp = () => {
                                 <Link href="/dashboard" passHref>
                                     <Nav.Link>Dashboard</Nav.Link>
                                 </Link>
+                                <Link href="/records" passHref>
+                                    <Nav.Link>Records</Nav.Link>
+                                </Link>
+                                <Link href={`/u/${user?.nickname || user.displayName}`} passHref>
+                                    <Nav.Link>Profile</Nav.Link>
+                                </Link>
                                 <Link href="/documents" passHref>
                                     <Nav.Link>Documents</Nav.Link>
                                 </Link>
-                                <Link href="/profile" passHref>
-                                    <Nav.Link>Profile</Nav.Link>
-                                </Link>
-                                <Link href="/records" passHref>
-                                    <Nav.Link>Records</Nav.Link>
+                                <Link href="/edit" passHref>
+                                    <Nav.Link>Edit</Nav.Link>
                                 </Link>
                                 <Nav.Link
                                     onClick={() => {

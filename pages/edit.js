@@ -1,12 +1,15 @@
 import { Container, Row } from 'react-bootstrap'
 import UserDetails from '../components/UserDetails'
 
-const Profile = () => {
+const Edit = () => {
 
     return (
         <Container>
-            <h3>Profile</h3>
+            <h3>Edit</h3>
             <hr />
+            <Row className="my-4 mx-1">
+                Edit user details, set them as public or private
+            </Row>
             <Row>
                 <UserDetails />
             </Row>
@@ -14,4 +17,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default Edit

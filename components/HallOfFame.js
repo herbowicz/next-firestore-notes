@@ -22,7 +22,7 @@ const HallOfFame = () => {
 				<tr>
 					<th>#</th>
 					<th>Name</th>
-					<th>Title</th>
+					<th>Role</th>
 					<th>Points</th>
 				</tr>
 			</thead>
@@ -36,7 +36,7 @@ const HallOfFame = () => {
 								<Image src={el.photoURL} width='22' height='22' alt='' />{' '}
 								{el.displayName || el.email}
 							</td>
-							<td>{el.title || '[No Title]'}</td>
+							<td>{el.role || 'user'}</td>
 							<td>{el.points}</td>
 						</tr>
 					))}
