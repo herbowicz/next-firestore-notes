@@ -13,7 +13,15 @@ const NavbarComp = () => {
             <Container>
                 <Link href="/" passHref>
                     <Navbar.Brand>
-                        {user && <Image src={user.photoURL} width='50' height='50' alt=''/>}{' '}
+                        {user && <Image 
+                            style={{
+                                objectFit: 'cover',
+                                borderRadius: '50%',
+                            }}
+                            src={user.photoURL} 
+                            width='50' 
+                            height='50' 
+                            alt=''/>}{' '}
                         <span>{' '}NextJS Firebase Auth</span>
                     </Navbar.Brand>
                 </Link>
