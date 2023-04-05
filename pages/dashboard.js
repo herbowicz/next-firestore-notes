@@ -10,9 +10,9 @@ const Dashboard = () => {
 
     return (
         <>
-            <title>herbowicz.vercel.app</title>
-            <meta name="description" content="This is a herbowicz.vercel app" />
-            <link rel="icon" href="/favicon.ico" />
+            <title>a2p.dev</title>
+            <meta name="description" content="a2p.dev" />
+            <link rel="icon" href="/logo.png" />
 
             <Container>
                 <h3>Dashboard</h3>

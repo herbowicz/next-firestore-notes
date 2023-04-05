@@ -22,7 +22,10 @@ const NavbarComp = () => {
                             width='50' 
                             height='50' 
                             alt=''/>}{' '}
-                        <span>{' '}NextJS Firebase Auth</span>
+                        <span style={{
+                            fontFamily: "'Bungee', cursive",
+                            color: '#20344f'
+                        }}>{' '}a2p.dev</span>
                     </Navbar.Brand>
                 </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
