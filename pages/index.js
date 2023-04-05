@@ -23,7 +23,7 @@ const Home = () => {
 		}}>
 			<div style={{
 				color: 'white',
-				padding: 50
+				padding: 25
 			}}>
 				<div>
 					<h1 className="text-center">Hello!</h1>
@@ -36,7 +36,7 @@ const Home = () => {
 					width: '250px',
 					height: '500px',
 					margin: '70px auto',
-					// transform: 'rotate(270deg) translate(0, 100px)',
+					transform: 'rotate(270deg) translate(0, 30px)',
 				}}>
 				<table>
 						<tr><td>d</td><td>a</td></tr>

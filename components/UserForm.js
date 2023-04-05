@@ -29,7 +29,7 @@ const UserForm = ({ submit, data }) => {
                 ))}
 
                 <Button className='mt-2' variant="primary" type="submit">
-                    Update User
+                    Save
                 </Button>
             </Form>
         </>

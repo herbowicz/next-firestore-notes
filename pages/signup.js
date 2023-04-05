@@ -23,12 +23,12 @@ const Signup = () => {
     }
 
     return (
-        <div
-            style={{
-                width: '40%',
-                margin: 'auto',
-            }}
-        >
+        <div style={{
+            width: '40%',
+            margin: 'auto',
+            paddingTop: 25,
+            color: 'white'
+        }}>
             <h1 className="text-center my-3 ">Signup</h1>
             <Form onSubmit={handleSignup}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">

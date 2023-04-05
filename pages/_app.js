@@ -13,7 +13,7 @@ export default function MyApp({ Component, pageProps }) {
     <AuthContextProvider>
       <Navbar />
       <div style={{
-        background: '#20344f'
+        background: '#20344f', height: '100vh'
       }}>
         {noAuthRequired.includes(router.pathname) ? (
           <Component {...pageProps} />
