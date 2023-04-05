@@ -23,19 +23,19 @@ const Login = () => {
         }
     }
 
-    // useEffect(() => {
-    //     if (user) {
-    //         router.push('/notes')
-    //     }
-    // }, [router, user])
+    useEffect(() => {
+        if (user) {
+            router.push('/dashboard')
+        }
+    }, [router, user])
 
     return (
-        <div
-            style={{
-                width: '40%',
-                margin: 'auto',
-            }}
-        >
+        <div style={{
+            width: '40%',
+            margin: 'auto',
+            paddingTop: 25,
+            color: 'white'
+        }}>
             <h1 className="text-center my-3 ">Login</h1>
             <Form onSubmit={handleLogin}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
