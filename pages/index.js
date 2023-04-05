@@ -22,7 +22,7 @@ const Home = () => {
 			height: 'calc(100vh - 100px)',
 		}}>
 			<div style={{
-				color: 'white',
+				color: '#20344f',
 				padding: 25
 			}}>
 				<div>
@@ -31,12 +31,12 @@ const Home = () => {
 				</div>
 				<div style={{
 					fontFamily: "'Bungee', cursive",
-					fontSize: '20vh',
-					lineHeight: '17vh',
+					fontSize: '175px',
+					lineHeight: '155px',
 					width: '250px',
-					height: '500px',
+					height: '450px',
 					margin: '70px auto',
-					transform: 'rotate(270deg) translate(0, 30px)',
+					transform: 'rotate(270deg)'
 				}}>
 				<table>
 						<tr><td>d</td><td>a</td></tr>
