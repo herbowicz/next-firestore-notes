@@ -26,8 +26,7 @@ const Signup = () => {
         <div style={{
             width: '40%',
             margin: 'auto',
-            paddingTop: 25,
-            color: 'white'
+            paddingTop: 25
         }}>
             <h1 className="text-center my-3 ">Signup</h1>
             <Form onSubmit={handleSignup}>

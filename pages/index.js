@@ -31,8 +31,8 @@ const Home = () => {
 				</div>
 				<div style={{
 					fontFamily: "'Bungee', cursive",
-					fontSize: '175px',
-					lineHeight: '155px',
+					fontSize: '180px',
+					lineHeight: '150px',
 					width: '250px',
 					height: '450px',
 					margin: '70px auto',

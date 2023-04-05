@@ -33,8 +33,7 @@ const Login = () => {
         <div style={{
             width: '40%',
             margin: 'auto',
-            paddingTop: 25,
-            color: 'white'
+            paddingTop: 25
         }}>
             <h1 className="text-center my-3 ">Login</h1>
             <Form onSubmit={handleLogin}>
