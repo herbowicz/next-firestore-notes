@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
+import '../styles/style.css'
 import Navbar from '../components/Navbar'
 import { useRouter } from 'next/router'
 import { AuthContextProvider } from '../context/authContext'
