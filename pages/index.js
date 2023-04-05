@@ -31,11 +31,10 @@ const Home = () => {
 				</div>
 				<div style={{
 					fontFamily: "'Bungee', cursive",
-					fontSize: '180px',
-					lineHeight: '150px',
-					width: '250px',
-					height: '450px',
-					margin: '70px auto',
+					fontSize: '150px',
+					lineHeight: '130px',
+					width: '50vh',
+					margin: '0 auto',
 					transform: 'rotate(270deg)'
 				}}>
 				<table>
