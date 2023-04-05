@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { getStorage, ref, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 import { auth } from '../firebase'
 import { useAuth } from '../context/authContext'
-import { Button } from 'react-bootstrap'
+import Button from './Button'
 
 const storage = getStorage()
 
@@ -71,7 +71,7 @@ const ShowFiles = () => {
                     return (
                         <div key={i} style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginRight: 10 }}>
                             <Image onClick={() => selectImage(url)} key={i} src={url} alt='' width='100' height='100' />
-                            <Button style={{ marginLeft: -34, zIndex: 5 }} onClick={() => deleteImage(url)} variant="danger">
+                            <Button variant="close" onClick={() => deleteImage(url)}>
                                 x
                             </Button>
                         </div>

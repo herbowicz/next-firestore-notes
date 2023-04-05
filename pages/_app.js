@@ -12,13 +12,17 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <AuthContextProvider>
       <Navbar />
-      {noAuthRequired.includes(router.pathname) ? (
-        <Component {...pageProps} />
-      ) : (
-        <ProtectedRoute>
+      <div style={{
+        background: '#20344f'
+      }}>
+        {noAuthRequired.includes(router.pathname) ? (
           <Component {...pageProps} />
-        </ProtectedRoute>
-      )}
+        ) : (
+          <ProtectedRoute>
+            <Component {...pageProps} />
+          </ProtectedRoute>
+        )}
+      </div>
     </AuthContextProvider>
   )
 }

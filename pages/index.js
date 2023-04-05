@@ -17,14 +17,34 @@ const Home = () => {
 	}, [])
 
 	return (
-		<div
-            style={{
-                width: '40%',
-                margin: 'auto',
-            }}
-        >
-            <h1 className="text-center my-3 ">Hello!</h1>
-			<p className="text-center">Login or Signup to continue...</p>
+		<div style={{
+			width: '100vw',
+			height: 'calc(100vh - 100px)',
+		}}>
+			<div style={{
+				color: 'white',
+				padding: 50
+			}}>
+				<div>
+					<h1 className="text-center">Hello!</h1>
+					<p className="text-center">Login or Signup to continue...</p>
+				</div>
+				<div style={{
+					fontFamily: "'Bungee', cursive",
+					fontSize: '20vh',
+					lineHeight: '17vh',
+					width: '250px',
+					height: '500px',
+					margin: '70px auto',
+					// transform: 'rotate(270deg) translate(0, 100px)',
+				}}>
+				<table>
+						<tr><td>d</td><td>a</td></tr>
+						<tr><td>e</td><td>2</td></tr>
+						<tr><td>v</td><td>p</td></tr>
+					</table>
+				</div>
+			</div>
 		</div>
 	)
 }

@@ -3,13 +3,10 @@ import { database } from '../firebase';
 import {
     doc,
     getDoc,
-    getDocs,
-    collection,
-    updateDoc,
-    setDoc,
-    deleteDoc
+    setDoc
 } from 'firebase/firestore'
-import { Button, Col, Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
+import Button from './Button'
 import { useAuth } from '../context/authContext'
 import UserForm from './UserForm'
 
