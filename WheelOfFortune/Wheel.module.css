@@ -8,8 +8,8 @@
 
 .container {
   position: relative;
-  max-width: 650px;
-  max-height: 650px;
+  width: 450px;
+  height: 450px;
 }
 
 .spin__btn {
