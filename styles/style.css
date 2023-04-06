@@ -1,7 +1,8 @@
 @font-face {
-    font-family: 'bungee-rotated';
-    src: url('../public/fonts/bungee-rotated.otf');
+    font-family: "bungee-rotated";
+    src: url("../public/fonts/bungee-rotated.otf");
 }
+
 
 /* body {
     background: radial-gradient(circle,
