@@ -2,3 +2,20 @@
     font-family: 'bungee-rotated';
     src: url('../public/fonts/bungee-rotated.otf');
 }
+
+/* body {
+    background: radial-gradient(circle,
+            transparent 20%,
+            #e5e5f7 20%,
+            #e5e5f7 80%,
+            transparent 80%,
+            transparent),
+        radial-gradient(circle,
+            transparent 20%,
+            #e5e5f7 20%,
+            #e5e5f7 80%,
+            transparent 80%,
+            transparent) 10px 10px,
+        linear-gradient(#6794e0 0.8px, transparent 0.8px) 0 -0.4px,
+        linear-gradient(90deg, #6794e0 0.8px, #e5e5f7 0.8px) -0.4px 0;
+} */

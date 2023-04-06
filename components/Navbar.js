@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Nav, Navbar, Image } from 'react-bootstrap'
 import Link from 'next/link'
 import { useAuth } from '../context/authContext'
@@ -22,10 +22,14 @@ const NavbarComp = () => {
                             width='50' 
                             height='50' 
                             alt=''/>}{' '}
-                        <span style={{
-                            fontFamily: "'Bungee', cursive",
-                            color: '#20344f'
-                        }}>{' '}a2p.dev</span>
+                        <div style={{
+                            display: 'inline-block',
+                            color: '#20344f',
+                            fontFamily: "'bungee-rotated', cursive"
+                        }}>
+                            {' '}
+                            {'a2p.dev'}
+                        </div>
                     </Navbar.Brand>
                 </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -38,6 +42,9 @@ const NavbarComp = () => {
                                 </Link>
                                 <Link href="/records" passHref>
                                     <Nav.Link>Records</Nav.Link>
+                                </Link>
+                                <Link href="/wheel" passHref>
+                                    <Nav.Link>Wheel</Nav.Link>
                                 </Link>
                                 <Link href={`/u/${user?.nickname || user.displayName}`} passHref>
                                     <Nav.Link>Profile</Nav.Link>
