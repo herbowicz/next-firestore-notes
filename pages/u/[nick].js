@@ -31,7 +31,7 @@ const Nick = () => {
                     <h5>User: {nick}</h5>
                 </Row>
                 <Row>
-                    <UserDetails />
+                    <UserDetails profile="public"/>
                 </Row>
             </Container>
         </>

@@ -12,7 +12,7 @@ import UserForm from './UserForm'
 
 const uneditable = ['uid', 'photoURL', 'email']
 
-export default function UserDetails() {
+export default function UserDetails({profile}) {
     const { user } = useAuth()
     const [userDetails, setUserDetails] = useState()
     const [isEdit, setIsEdit] = useState(false);
@@ -21,8 +21,9 @@ export default function UserDetails() {
     const [content, setContent] = useState({})
 
     const getEditData = () => {
-        setIsEdit(!isEdit);
-        setPoints(points => points + 5)
+        console.log('click')
+        setIsEdit(!isEdit)
+        // setPoints(points => points + 5)
     }
 
     useEffect(() => {
@@ -52,6 +53,7 @@ export default function UserDetails() {
         const collectionById = doc(database, 'users', user.email)
 
         const data = {...user, ...content, points}
+        console.log(data)
 
         setDoc(collectionById, data)
             .then(() => {
@@ -64,7 +66,7 @@ export default function UserDetails() {
     return (
         <>
             {isEdit ? (
-                <>
+                <> 
                     <UserForm submit={updateUser} data={content} />
                 </>
             ) : (
@@ -80,11 +82,11 @@ export default function UserDetails() {
                     }
                 </>
             )}
-            <div className='my-2'>
-                <Button onClick={getEditData} variant="success">
+            {profile === 'public' || <div className='my-2'>
+                <Button onClick={() => getEditData()} variant="success">
                     {isEdit ? 'Close' : 'Edit'}
                 </Button>
-            </div>
+            </div>}
         </>
     )
 }

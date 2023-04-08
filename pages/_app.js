@@ -3,6 +3,7 @@ import '../styles/style.css'
 import Navbar from '../components/Navbar'
 import { useRouter } from 'next/router'
 import { AuthContextProvider } from '../context/authContext'
+import UserContextProvider from '../context/userContext'
 import ProtectedRoute from '../components/ProtectedRoute'
 
 const noAuthRequired = ['/', '/login', '/signup']
@@ -12,14 +13,16 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <AuthContextProvider>
-      <Navbar />
-      {noAuthRequired.includes(router.pathname) ? (
-        <Component {...pageProps} />
-      ) : (
-        <ProtectedRoute>
+      <UserContextProvider>
+        <Navbar />
+        {noAuthRequired.includes(router.pathname) ? (
           <Component {...pageProps} />
-        </ProtectedRoute>
-      )}
+        ) : (
+          <ProtectedRoute>
+            <Component {...pageProps} />
+          </ProtectedRoute>
+        )}
+      </UserContextProvider>
     </AuthContextProvider>
   )
 }
