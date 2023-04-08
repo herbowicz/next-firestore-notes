@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { Container, Row, Image } from 'react-bootstrap'
+import { Container, Row, Col, Image } from 'react-bootstrap'
 import { useAuth } from '../../context/authContext'
 import UserDetails from '../../components/UserDetails'
 
@@ -14,24 +14,28 @@ const Nick = () => {
                 <h3><p>Profile</p></h3>
                 <hr />
                 <Row>
-                    <h2>{user.displayName}</h2>
+                    <Col>
+                        <h2>{user.displayName}</h2>
+                        <span style={{ fontSize: 14, background: '#eee' }}>
+                            https://a2p/dev/u/{nick}
+                            {/* https://a2p/dev/u/{user.nickname} */}
+                        </span>
+                    </Col>
+                    <Col>
+                        <div style={{ maxWidth: 200, maxHeight: 200 }}>
+                            <Image
+                                style={{
+                                    objectFit: 'cover',
+                                    borderRadius: '50%',
+                                    maxHeight: 200
+                                }}
+                                src={user.photoURL}
+                                alt='' />
+                        </div>
+                    </Col>
                 </Row>
-                <Row>
-                    <div style={{ width: 250, height: 250 }}>
-                        <Image
-                            style={{
-                                objectFit: 'cover',
-                                borderRadius: '50%',
-                            }}
-                            src={user.photoURL}
-                            alt='' />
-                    </div>
-                </Row>
-                <Row>
-                    <h5>User: {nick}</h5>
-                </Row>
-                <Row>
-                    <UserDetails profile="public"/>
+                <Row className="mt-3">
+                    <UserDetails profile="public" />
                 </Row>
             </Container>
         </>

@@ -66,7 +66,7 @@ export default function UserDetails({profile}) {
     return (
         <>
             {isEdit ? (
-                <> 
+                <>
                     <UserForm submit={updateUser} data={content} />
                 </>
             ) : (
@@ -83,7 +83,10 @@ export default function UserDetails({profile}) {
                 </>
             )}
             {profile === 'public' || <div className='my-2'>
-                <Button onClick={() => getEditData()} variant="success">
+                <Button onClick={() => {
+                    console.log('!!!!')
+                    getEditData()
+                }} variant="success">
                     {isEdit ? 'Close' : 'Edit'}
                 </Button>
             </div>}

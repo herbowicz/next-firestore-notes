@@ -24,7 +24,7 @@ const ShowFiles = () => {
 
     useEffect(() => {
         const fetchImages = async () => {
-            const storageRef = ref(storage, `users/${user.email}`)
+            const storageRef = ref(storage, `users/${user?.email}`)
             const result = await listAll(storageRef);
 
             const urlPromises = result.items.map((imageRef) => getDownloadURL(imageRef));

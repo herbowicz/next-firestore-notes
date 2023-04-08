@@ -11,7 +11,7 @@ const Wheel = () => {
 
     const showPoints = (value, points, time) => {     
         setTimeout(() => {
-            setFlag(true)
+            flag || setFlag(true)
             console.log(Math.floor((value % 360)/18), points)
             setSpinning(false)
         }, time * 1000)

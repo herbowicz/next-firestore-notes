@@ -10,9 +10,6 @@ const UserForm = ({ submit, data }) => {
         setContent({ ...content, [key]: e.target.value })
     }
 
-
-    console.log('content keys', Object.keys(content))
-
     const capitalized = word =>  word.charAt(0).toUpperCase() + word.slice(1)
 
     return (

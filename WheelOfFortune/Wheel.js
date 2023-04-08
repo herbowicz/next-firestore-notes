@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import styles from './Wheel.module.css'
 import { Container } from 'react-bootstrap'
 import { useUser } from '../context/userContext'
 import { database } from '../firebase';
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { useAuth } from '../context/authContext'
 
 const Wheel = ({ showPoints, setSpinning }) => {
@@ -28,27 +28,28 @@ const Wheel = ({ showPoints, setSpinning }) => {
     }
 
 
-    const updateUser = (points) => {
-        const collectionById = doc(database, 'users', user.email)
 
-        const data = {...data, points}
+    const updateUserPoints = useCallback((points) => {
 
-        setDoc(collectionById, data)
+        const c = doc(database, 'users', user.email)
+
+        user && getDoc(c)
+            .then(data => data.data())
+            .then(data => setDoc(c, {...data, points})) 
             .then(() => {
-                console.log('Points updated!', collectionById)
+                console.log('Points updated!', c)
             })
-            .catch(err => conosle.log(err))
-    }
-
+            .catch(err => console.log(err))
+    }, [user])
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setUser({points})
             console.log('points', points)
-            updateUser(points)
+            updateUserPoints(points)
         }, time * 1000);
         return () => clearTimeout(timer);
-    }, [setUser, time, points]);
+    }, [setUser, updateUserPoints, time, points]);
 
     const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
     const r = randomBetween(0, 255);
