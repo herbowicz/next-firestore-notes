@@ -22,7 +22,7 @@ const NavbarComp = () => {
                                 objectFit: 'cover',
                                 borderRadius: '50%',
                             }}
-                            src={dbUser.photoURL || user.photoURL} 
+                            src={ dbUser.photoURL || user.photoURL } 
                             width='50' 
                             height='50' 
                             alt=''/>}{' '}
@@ -50,7 +50,10 @@ const NavbarComp = () => {
                                 <Link href="/wheel" passHref>
                                     <Nav.Link>Wheel</Nav.Link>
                                 </Link>
-                                <Link href={`/u/${user?.nickname || user.displayName}`} passHref>
+                                <Link href={{
+                                    pathname: `/u/${user.email}`, //  dbUser?.nickname || user.displayName}`,
+                                    // query: { email: user.email }
+                                }} passHref>
                                     <Nav.Link>Profile</Nav.Link>
                                 </Link>
                                 <Link href="/documents" passHref>

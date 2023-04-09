@@ -9,7 +9,7 @@ import { useAuth } from '../context/authContext'
 
 const uneditable = ['uid', 'photoURL', 'email']
 
-export default function UserDetails({profile}) {
+export default function UserDetails() {
     const { dbUser, setDbUser } = useDbUser()
     const { user } = useAuth()
     const [userDetails, setUserDetails] = useState()
@@ -82,14 +82,14 @@ export default function UserDetails({profile}) {
                     }
                 </>
             )}
-            {profile === 'public' || <div className='my-2'>
+            <div className='my-2'>
                 <Button onClick={() => {
                     console.log('!!!!')
                     getEditData()
                 }} variant="success">
                     {isEdit ? 'Close' : 'Edit'}
                 </Button>
-            </div>}
+            </div>
         </>
     )
 }

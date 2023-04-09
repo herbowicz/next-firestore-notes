@@ -31,7 +31,7 @@ const HallOfFame = () => {
 				{users
 					.sort((a, b) => (a.points < b.points) ? 1 : -1)
 					.map((el, i) => (
-						<Link key={i} href={`/u/${el?.displayName || el.email}`} passHref>
+						<Link key={i} href={`/u/${el.email}`} email={el.email} passHref>
 							<tr>
 								<td>{i + 1}</td>
 								<td>
