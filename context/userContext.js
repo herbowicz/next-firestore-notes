@@ -1,16 +1,16 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 export const UserContext = createContext({})
 
-export const useUser = () => useContext(UserContext)
+export const useDbUser = () => useContext(UserContext)
 
 export const UserContextProvider = ({
     children,
 }) => {
-    const [user, setUser] = useState({
+    const [dbUser, setDbUser] = useState({
         points: null
     })
-    const value = { user, setUser }
+    const value = { dbUser, setDbUser }
 
     return (
         <UserContext.Provider value={value}>

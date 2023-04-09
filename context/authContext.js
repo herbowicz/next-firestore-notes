@@ -21,7 +21,6 @@ export const AuthContextProvider = ({
     const router = useRouter()
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
-    console.log(user)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -76,7 +75,7 @@ export const AuthContextProvider = ({
                 const credential = provider.constructor.credentialFromResult(result)
                 const token = credential?.accessToken
                 const user = result.user
-                console.log({ credential, token, user })
+                // console.log({ credential, token, user })
 
                 router.push('/dashboard')
             })

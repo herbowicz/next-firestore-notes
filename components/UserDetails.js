@@ -16,14 +16,12 @@ export default function UserDetails({profile}) {
     const { user } = useAuth()
     const [userDetails, setUserDetails] = useState()
     const [isEdit, setIsEdit] = useState(false);
-    const [points, setPoints] = useState(0);
 
     const [content, setContent] = useState({})
 
     const getEditData = () => {
         console.log('click')
         setIsEdit(!isEdit)
-        // setPoints(points => points + 5)
     }
 
     useEffect(() => {
@@ -44,7 +42,6 @@ export default function UserDetails({profile}) {
             about: userDetails?.about || '',
             role: userDetails?.role || '',
         })
-        setPoints(userDetails?.points || 0)
     }, [userDetails])
 
 
@@ -52,7 +49,7 @@ export default function UserDetails({profile}) {
         e.preventDefault()
         const collectionById = doc(database, 'users', user.email)
 
-        const data = {...user, ...content, points}
+        const data = {...user, ...content}
         console.log(data)
 
         setDoc(collectionById, data)
@@ -72,7 +69,7 @@ export default function UserDetails({profile}) {
             ) : (
                 <>
                     {userDetails && Object.entries(userDetails)
-                        .filter(([key]) => !uneditable.includes(key))
+                        // .filter(([key]) => !uneditable.includes(key))
                         .map(([key, value], i) => (
                             <Row key={i}>
                                 <Col> {key} </Col>

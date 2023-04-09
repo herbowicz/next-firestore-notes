@@ -2,11 +2,15 @@ import React, { useState } from 'react'
 import { Container, Nav, Navbar, Image } from 'react-bootstrap'
 import Link from 'next/link'
 import { useAuth } from '../context/authContext'
+
+import { useDbUser } from '../context/userContext'
 import { useRouter } from 'next/router'
 
 const NavbarComp = () => {
     const { user, logout } = useAuth()
+    const { dbUser } = useDbUser()
     const router = useRouter()
+    console.log( 'USER', user, 'DBUSER', dbUser)
 
     return (
         <Navbar bg="light" expand="lg">
@@ -18,7 +22,7 @@ const NavbarComp = () => {
                                 objectFit: 'cover',
                                 borderRadius: '50%',
                             }}
-                            src={user.photoURL} 
+                            src={dbUser.photoURL || user.photoURL} 
                             width='50' 
                             height='50' 
                             alt=''/>}{' '}
