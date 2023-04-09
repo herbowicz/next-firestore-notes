@@ -1,18 +1,16 @@
 import { useState, useEffect } from 'react'
 import { database } from '../firebase';
-import {
-    doc,
-    getDoc,
-    setDoc
-} from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { Col, Row } from 'react-bootstrap'
 import Button from './Button'
-import { useAuth } from '../context/authContext'
 import UserForm from './UserForm'
+import { useDbUser } from '../context/userContext'
+import { useAuth } from '../context/authContext'
 
 const uneditable = ['uid', 'photoURL', 'email']
 
 export default function UserDetails({profile}) {
+    const { dbUser, setDbUser } = useDbUser()
     const { user } = useAuth()
     const [userDetails, setUserDetails] = useState()
     const [isEdit, setIsEdit] = useState(false);
@@ -52,19 +50,24 @@ export default function UserDetails({profile}) {
         const data = {...user, ...content}
         console.log(data)
 
-        setDoc(collectionById, data)
+        updateDoc(collectionById, data)
             .then(() => {
                 alert('User preserved!')
-                window.location.reload()
+                //window.location.reload()
             })
             .catch(err => conosle.log(err))
+    }
+
+    const submit = (e, content) => {
+        setDbUser({...dbUser, ...content})
+        updateUser(e, content)
     }
 
     return (
         <>
             {isEdit ? (
                 <>
-                    <UserForm submit={updateUser} data={content} />
+                    <UserForm submit={submit} data={content} />
                 </>
             ) : (
                 <>

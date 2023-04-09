@@ -1,12 +1,21 @@
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Container, Row, Col, Image } from 'react-bootstrap'
-import { useAuth } from '../../context/authContext'
 import UserDetails from '../../components/UserDetails'
+import { useDbUser } from '../../context/userContext'
+import { useAuth } from '../../context/authContext'
 
 const Nick = () => {
+    const { dbUser, setDbUser } = useDbUser()
     const { user } = useAuth()
     const router = useRouter()
     const { nick } = router.query
+    const [nickname, setNickname] = useState()
+
+    useEffect(() => {
+        dbUser && setNickname(dbUser.nickname)
+        console.log('>>>>>>', dbUser)
+    }, [dbUser])
 
     return (
         <>
@@ -17,8 +26,7 @@ const Nick = () => {
                     <Col>
                         <h2>{user.displayName}</h2>
                         <span style={{ fontSize: 14, background: '#eee' }}>
-                            https://a2p/dev/u/{nick}
-                            {/* https://a2p/dev/u/{user.nickname} */}
+                            https://a2p/dev/u/{nick} https://a2p/dev/u/{nickname}
                         </span>
                     </Col>
                     <Col>

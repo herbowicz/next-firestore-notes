@@ -8,7 +8,10 @@ export const UserContextProvider = ({
     children,
 }) => {
     const [dbUser, setDbUser] = useState({
-        points: null
+        points: null,
+        nickname: '',
+        about: '',
+        role: ''
     })
     const value = { dbUser, setDbUser }
 

@@ -1,9 +1,9 @@
 import styles from './Wheel.module.css'
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Container, Row } from 'react-bootstrap'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { database } from '../firebase'
 import { useDbUser } from '../context/userContext'
-import { database } from '../firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { useAuth } from '../context/authContext'
 
 
@@ -31,7 +31,7 @@ const Wheel = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             // frontend
-            setDbUser({ points: total })
+            setDbUser({ ...dbUser, points: total })
             // backend
             updateUserPoints(total)
 
@@ -54,7 +54,7 @@ const Wheel = () => {
 
         user && getDoc(c)
             .then(data => data.data())
-            .then(data => setDoc(c, {...data, points})) 
+            .then(data => updateDoc(c, {...data, points})) 
             .then(() => {
                 console.log('Points updated!')
             })
