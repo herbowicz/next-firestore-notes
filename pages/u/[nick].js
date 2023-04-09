@@ -1,25 +1,30 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { database } from '../../firebase';
-import { doc, getDoc } from 'firebase/firestore'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 import { Container, Row, Col, Image } from 'react-bootstrap'
-import UserDetails from '../../components/UserDetails'
-import { useAuth } from '../../context/authContext'
 
-const Nick = ({ query }) => {
-    const { user } = useAuth()
+const Nick = () => {
     const [profile, setProfile] = useState({})
     const router = useRouter()
     const { nick } = router.query
 
     useEffect(() => {
         const getProfile = async () => {
-            const userData= doc(database, 'users', nick)
-            const data = await getDoc(userData)
-            setProfile(data.data())
+            const c = collection(database, 'users')
+            const q = query(c, where("nickname", "==", nick))
+
+            const querySnapshot = await getDocs(q)
+
+            querySnapshot.forEach((doc) => {
+                setProfile({...doc.data(), id: doc.id})
+            })
+
         }
         getProfile()
     }, [nick])
+
+    const hidden = ['photoURL']
 
     return (
         <>
@@ -28,7 +33,7 @@ const Nick = ({ query }) => {
                 <hr />
                 <Row>
                     <Col>
-                        <h2>{user.displayName}</h2>
+                        <h2>{profile.displayName}</h2>
                         <span style={{ fontSize: 14, background: '#eee' }}>
                             a2p.dev/u/{nick}
                         </span>
@@ -41,23 +46,23 @@ const Nick = ({ query }) => {
                                     borderRadius: '50%',
                                     maxHeight: 200
                                 }}
-                                src={ profile?.photoURL }
+                                src={profile?.photoURL}
                                 alt='' />
                         </div>
                     </Col>
                 </Row>
                 <Row className="mt-3">
-                <>
-                    {profile && Object.entries(profile)
-                        // .filter(([key]) => !uneditable.includes(key))
-                        .map(([key, value], i) => (
-                            <Row key={i}>
-                                <Col> {key} </Col>
-                                <Col> {value} </Col>
-                            </Row>
-                        ))
-                    }
-                </>
+                    <>
+                        {profile && Object.entries(profile)
+                            .filter(([key]) => !hidden.includes(key))
+                            .map(([key, value], i) => (
+                                <Row key={i}>
+                                    <Col> {key} </Col>
+                                    <Col> {value} </Col>
+                                </Row>
+                            ))
+                        }
+                    </>
                 </Row>
             </Container>
         </>
