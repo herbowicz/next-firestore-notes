@@ -18,7 +18,6 @@ export default function UserDetails() {
     const [content, setContent] = useState({})
 
     const getEditData = () => {
-        console.log('click')
         setIsEdit(!isEdit)
     }
 
@@ -32,7 +31,7 @@ export default function UserDetails() {
         }
         
         getUser()
-    }, [user, setUserDetails])
+    }, [user, setUserDetails, setDbUser])
 
     useEffect(() => {
         setContent({
@@ -48,7 +47,6 @@ export default function UserDetails() {
         const collectionById = doc(database, 'users', user.email)
 
         const data = {...user, ...content}
-        console.log(data)
 
         updateDoc(collectionById, data)
             .then(() => {
