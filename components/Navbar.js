@@ -51,7 +51,7 @@ const NavbarComp = () => {
                                     <Nav.Link>Wheel</Nav.Link>
                                 </Link>
                                 <Link href={{
-                                    pathname: `/u/${user.email}`, //  dbUser?.nickname || user.displayName}`,
+                                    pathname: `/u/${dbUser?.nickname || user.displayName}`,
                                     // query: { email: user.email }
                                 }} passHref>
                                     <Nav.Link>Profile</Nav.Link>

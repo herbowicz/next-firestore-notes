@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react'
-import { Container, Table, Image } from 'react-bootstrap'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { database } from '../firebase'
+import { useAuth } from '../context/authContext'
 
 const dbInstance = collection(database, 'users');
 
 const Home = () => {
+	const { user } = useAuth()
 	const [users, setUsers] = useState([])
 
-	useEffect(() => {
-		onSnapshot(dbInstance, docsSnap => {
-			docsSnap.forEach(doc => {
-				setUsers((users) => [...users, doc.data()])
-			})
-		})
-	}, [])
+	// useEffect(() => {
+	// 	onSnapshot(dbInstance, docsSnap => {
+	// 		docsSnap.forEach(doc => {
+	// 			setUsers((users) => [...users, doc.data()])
+	// 		})
+	// 	})
+	// }, [])
 
 	return (
 		<div style={{
@@ -26,7 +27,7 @@ const Home = () => {
 			}}>
 				<div>
 					<h1 className="text-center">Hello!</h1>
-					<p className="text-center">Login or Signup to continue...</p>
+					<p className="text-center">{user ? `Welcome ${user.displayName || user.ncik}`: `Login or Signup to continue...`}</p>
 				</div>
 			</div>
 		</div>

@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useState, useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { useAuth } from '../context/authContext'
 
 const Signup = () => {
+    const router = useRouter()
     const { user, signup } = useAuth()
     console.log(user)
     const [data, setData] = useState({
@@ -21,6 +23,13 @@ const Signup = () => {
 
         console.log(data)
     }
+
+    useEffect(() => {
+        if (user) {
+            router.push('/dashboard')
+        }
+    }, [router, user])
+
 
     return (
         <div style={{
