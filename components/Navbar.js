@@ -10,32 +10,32 @@ const NavbarComp = () => {
     const { user, logout } = useAuth()
     const { dbUser } = useDbUser()
     const router = useRouter()
-    console.log( 'USER', user, 'DBUSER', dbUser)
+    console.log('USER', user, 'DBUSER', dbUser)
 
     return (
         <Navbar bg="light" expand="lg" collapseOnSelect>
             <Container>
                 <Link href="/" passHref>
                     <Navbar.Brand>
-                        {user && <Image 
+                        {user && <Image
                             style={{
                                 objectFit: 'cover',
                                 borderRadius: '50%',
                             }}
-                            src={ dbUser.photoURL || user.photoURL } 
-                            width='50' 
-                            height='50' 
-                            alt=''/>}{' '}
-                        <div style={{
-                            display: 'inline-block',
-                            color: '#20344f',
-                            fontFamily: "'bungee-rotated', cursive"
-                        }}>
-                            {' '}
-                            {'a2p.dev'}
-                        </div>
+                            src={dbUser.photoURL || user.photoURL}
+                            width='50'
+                            height='50'
+                            alt='' />}{' '}
                     </Navbar.Brand>
                 </Link>
+                <div style={{
+                    display: 'inline-block',
+                    color: '#20344f',
+                    fontSize: '1.5em',
+                    fontFamily: "'bungee-rotated', 'Bungee', cursive"
+                }}>
+                    {'a2p.dev'}
+                </div>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">

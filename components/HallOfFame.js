@@ -24,7 +24,6 @@ const HallOfFame = () => {
 					<th>#</th>
 					<th>Name</th>
 					<th>Nick</th>
-					<th>Role</th>
 					<th>Points</th>
 				</tr>
 			</thead>
@@ -42,7 +41,6 @@ const HallOfFame = () => {
 								<td>
 									{el.nickname}
 								</td>
-								<td>{el.role || 'user'}</td>
 								<td>{el.points}</td>
 							</tr>
 						</Link>
