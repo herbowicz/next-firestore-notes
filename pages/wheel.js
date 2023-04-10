@@ -18,7 +18,29 @@ const Wheel = () => {
     const [score, setScore] = useState()
 
     const time = 5
-    const fields = useMemo(() => [100, 0, 90, 1, 80, 2, 70, 3, 60, 4, 50, 5, 40, 6, 30, 7, 20, 8, 10, 9], [])
+    const fields = useMemo(() => [40, 0, 90, 1, 80, 2, 70, 3, 60, 4, 50, 5, 100, 6, 30, 7, 20, 8, 10, 9], [])
+    var colorArray = [
+        "#FF6633",
+        "#FFB399",
+        "#FF33FF",
+        "#FFFF99",
+        "#00B3E6",
+        "#E6B333",
+        "#3366E6",
+        "#999966",
+        "#809980",
+        "#E6FF80",
+        "#1AFF33",
+        "#999933",
+        "#FF3380",
+        "#CCCC00",
+        "#66E64D",
+        "#4D80CC",
+        "#FF4D4D",
+        "#99E6E6",
+        "#6666FF",
+        "#20344F"
+    ];
 
     useEffect(() => {
         const angle = 360 / fields.length
@@ -26,6 +48,17 @@ const Wheel = () => {
         const winPos = win => win === -1 ? 19 : win === 0 ? 20 : win
         flag && setScore(fields[winPos(win) - 1])
     }, [fields, flag, value])
+
+    const updateUserPoints = useCallback((points) => {
+        const c = doc(database, 'users', user.email)
+        getDoc(c)
+            .then(data => data.data())
+            .then(data => updateDoc(c, { ...data, points }))
+            .then(() => {
+                console.log('Points updated!')
+            })
+            .catch(err => console.log(err))
+    }, [user])
 
     const spin = () => {
         setSpinning(true)
@@ -46,32 +79,6 @@ const Wheel = () => {
         }, time * 1000)
     }
 
-    const updateUserPoints = useCallback((points) => {
-        const c = doc(database, 'users', user.email)
-
-        user && getDoc(c)
-            .then(data => data.data())
-            .then(data => updateDoc(c, { ...data, points }))
-            .then(() => {
-                console.log('Points updated!')
-            })
-            .catch(err => console.log(err))
-    }, [user])
-
-    const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
-    const r = randomBetween(0, 255);
-    const g = randomBetween(0, 255);
-    const b = randomBetween(0, 255);
-    const rgb = `rgb(${r},${g},${b})`;
-
-    const showScore = (score, time) => {
-        flag && setScore(score)
-        setFlag(true)
-        console.log({ score })
-
-
-    }
-
     return (
         <Container>
             <h3>Wheel of Fortune</h3>
@@ -87,7 +94,7 @@ const Wheel = () => {
                         <div key={i} className={styles.number} style={{
                             '--angle': 360 / fields.length,
                             '--i': i,
-                            '--clr': rgb
+                            '--clr': colorArray[i]
                         }}>
                             <span>{el}</span>
                         </div>
