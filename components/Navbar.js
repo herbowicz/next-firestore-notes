@@ -13,7 +13,7 @@ const NavbarComp = () => {
     console.log( 'USER', user, 'DBUSER', dbUser)
 
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg" collapseOnSelect>
             <Container>
                 <Link href="/" passHref>
                     <Navbar.Brand>
