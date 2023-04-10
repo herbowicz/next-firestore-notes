@@ -8,9 +8,9 @@
 
 .container {
   position: relative;
-  max-width: 100vw;
   width: 100vmin;
   height: 100vmin;
+  margin: 0 auto;
 }
 
 .spin__btn {
