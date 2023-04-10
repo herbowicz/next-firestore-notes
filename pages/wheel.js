@@ -27,18 +27,6 @@ const Wheel = () => {
         flag && setScore(fields[winPos(win) - 1])
     }, [fields, flag, value])
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            // frontend
-            setDbUser({ ...dbUser, points: total })
-            // backend
-            updateUserPoints(total)
-
-            console.log('total', total)
-        }, time * 1000);
-        return () => clearTimeout(timer);
-    }, [setDbUser, updateUserPoints, time, total, dbUser]);
-
     const spin = () => {
         setSpinning(true)
         const rand = Math.round(Math.random() * 3600)
@@ -47,6 +35,11 @@ const Wheel = () => {
         flag && setScore(score)
         flag && setTotal(total => total + score)
         setFlag(true)
+
+        // frontend
+        setDbUser({ ...dbUser, points: total })
+        // backend
+        updateUserPoints(total)
 
         setTimeout(() => {
             setSpinning(false)
@@ -76,7 +69,7 @@ const Wheel = () => {
         setFlag(true)
         console.log({ score })
 
-        
+
     }
 
     return (
@@ -84,7 +77,7 @@ const Wheel = () => {
             <h3>Wheel of Fortune</h3>
             <hr />
             <Row>
-                <h5>{spinning ? 'Spinning...' : flag ? `Your score is ${score} score.` : `Try your luck now!`}</h5>
+                <h5>{spinning ? 'Spinning ...' : flag ? `Your score is ${score}. ${score > 50 ? 'Well done!' : ''}` : `Try your luck now!`}</h5>
                 <h6>Total: {total}</h6>
             </Row>
             <Row className={styles.container}>
