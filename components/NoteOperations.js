@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Button, Accordion } from 'react-bootstrap'
+import { Button, Accordion, Container, Row, Col, Toast } from 'react-bootstrap'
 import { collection, addDoc, getDocs } from 'firebase/firestore'
 import { database } from '../firebase'
 import { useAuth } from '../context/authContext'
 import NoteForm from './NoteForm'
 import NoteDetails from './NoteDetails'
+import { formatDate } from '../utils/functions'
 
-export default function NoteOperations({ getSingleNote, ID }) {
+const NoteOperations = ({ getSingleNote, ID }) => {
     const [isInputVisible, setInputVisible] = useState(false);
     const { user } = useAuth()
     const [noteTitle, setNoteTitle] = useState('');
@@ -24,7 +25,8 @@ export default function NoteOperations({ getSingleNote, ID }) {
             noteAuthor: user.email,
             noteTitle: title,
             noteDesc: desc,
-            noteCreated: new Date()
+            noteCreated: new Date(),
+            noteModified: null
         })
             .then(() => {
                 setNoteTitle('')
@@ -62,33 +64,36 @@ export default function NoteOperations({ getSingleNote, ID }) {
                 </div>
             )}
 
-            {/* <Stack className='mt-3'>
-                {notesArray.map((note) => {
-                    return (
-                        <div
-                            key={note.id}
-                            onClick={() => getSingleNote(note.id)}>
-                            <h4>{note.noteTitle}</h4>
-                        </div>
-                    )
-                })}
-            </Stack> */}
+            <Row className='mt-3'>
+                <Col>
+                    <Row>
+                        {notesArray
+                            // .sort((a, b) => a.noteUpdated < b.noteUpdated)
+                            .map((note, i) => {
+                                return (
+                                    <Col key={note.id} eventKey={i} onClick={() => getSingleNote(note.id)}>
+                                        <Toast className="my-1">
+                                            <Toast.Header>
+                                                <strong className="me-auto">{note.noteTitle}</strong>
+                                                <small>{formatDate(note.noteModified)}</small>
+                                            </Toast.Header>
+                                            <Toast.Body>{note.noteDesc.substring(0, 80)} [...]</Toast.Body>
+                                        </Toast>
+                                    </Col>
+                                )
+                            })
+                        }
+                    </Row>
+                </Col>
+                {ID && (
+                    <Col>
+                        <NoteDetails ID={ID} />
+                    </Col>
+                )}
+            </Row>
 
-            <Accordion className='mt-3' defaultActiveKey="0">
-                {notesArray
-                    // .sort((a, b) => a.noteUpdated < b.noteUpdated)
-                    .map((note, i) => {
-                        return (
-                            <Accordion.Item key={note.id} eventKey={i} onClick={() => getSingleNote(note.id)}>
-                                <Accordion.Header>{note.noteTitle}</Accordion.Header>
-                                <Accordion.Body>
-                                    <NoteDetails ID={ID} />
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        )
-                    })
-                }
-            </Accordion>
         </>
     )
 }
+
+export default NoteOperations

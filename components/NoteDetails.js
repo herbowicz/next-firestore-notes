@@ -1,20 +1,17 @@
 import { useState, useEffect } from 'react'
-import { database } from '../firebase';
 import {
     doc,
     getDoc,
     getDocs,
-    collection,
-    query,
-    where,
     updateDoc,
     deleteDoc
 } from 'firebase/firestore'
 import { Button, Image, Row, Col } from 'react-bootstrap'
+import { database } from '../firebase'
+import { formatDate } from '../utils/functions'
 import NoteForm from './NoteForm'
 
-
-export default function NoteDetails({ ID }) {
+const NoteDetails = ({ ID }) => {
     const [singleNote, setSingleNote] = useState({})
     const [isEdit, setIsEdit] = useState(false)
     const [title, setNoteTitle] = useState('')
@@ -29,7 +26,6 @@ export default function NoteDetails({ ID }) {
                 setSingleNote({ ...data.data(), id: data.id })
             }
         }
-
         getSingleNote();
     }, [ID, setSingleNote])
 
@@ -40,7 +36,6 @@ export default function NoteDetails({ ID }) {
                 const data = await getDoc(singleProfile)
                 setProfile({ ...data.data(), id: data.id })
             }
-
         }
         getProfile()
     }, [singleNote])
@@ -85,10 +80,6 @@ export default function NoteDetails({ ID }) {
             })
     }
 
-    const formatDate = date => new Date(date.seconds*1000).toLocaleString("en-EN", {
-        year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit"
-    })
-
     return (
         <>
             {isEdit ? (
@@ -129,3 +120,5 @@ export default function NoteDetails({ ID }) {
         </>
     )
 }
+
+export default NoteDetails
