@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { database } from '../firebase'
 
-const dbInstance = collection(database, 'users');
-
 const HallOfFame = () => {
 	const [users, setUsers] = useState([])
+
+	const dbInstance = collection(database, 'users');
 
 	useEffect(() => {
 		onSnapshot(dbInstance, docsSnap => {

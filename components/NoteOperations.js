@@ -6,8 +6,6 @@ import { useAuth } from '../context/authContext'
 import NoteForm from './NoteForm'
 import NoteDetails from './NoteDetails'
 
-const dbInstance = collection(database, 'notes');
-
 export default function NoteOperations({ getSingleNote, ID }) {
     const [isInputVisible, setInputVisible] = useState(false);
     const { user } = useAuth()
@@ -18,12 +16,15 @@ export default function NoteOperations({ getSingleNote, ID }) {
         setInputVisible(!isInputVisible)
     }
 
+    const dbInstance = collection(database, 'notes')
+
     const saveNote = (e, title, desc) => {
         e.preventDefault()
         addDoc(dbInstance, {
             noteAuthor: user.email,
             noteTitle: title,
             noteDesc: desc,
+            noteCreated: new Date()
         })
             .then(() => {
                 setNoteTitle('')
@@ -34,13 +35,16 @@ export default function NoteOperations({ getSingleNote, ID }) {
     }
 
     const getNotes = () => {
-        getDocs(dbInstance)
+        getDocs(collection(database, 'notes'))
             .then((data) => {
-                setNotesArray(data.docs.map((item) => {
-                    return { ...item.data(), id: item.id }
-                }))
+                setNotesArray(data.docs
+                    .map((item) => {
+                        return { ...item.data(), id: item.id }
+                    })
+                )
             })
     }
+
 
     useEffect(() => {
         getNotes()
@@ -71,16 +75,18 @@ export default function NoteOperations({ getSingleNote, ID }) {
             </Stack> */}
 
             <Accordion className='mt-3' defaultActiveKey="0">
-                {notesArray.map((note, i) => {
-                    return (
-                        <Accordion.Item key={note.id} eventKey={i} onClick={() => getSingleNote(note.id)}>
-                            <Accordion.Header>{note.noteTitle}</Accordion.Header>
-                            <Accordion.Body>
-                                <NoteDetails ID={ID} />
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    )
-                })
+                {notesArray
+                    // .sort((a, b) => a.noteUpdated < b.noteUpdated)
+                    .map((note, i) => {
+                        return (
+                            <Accordion.Item key={note.id} eventKey={i} onClick={() => getSingleNote(note.id)}>
+                                <Accordion.Header>{note.noteTitle}</Accordion.Header>
+                                <Accordion.Body>
+                                    <NoteDetails ID={ID} />
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        )
+                    })
                 }
             </Accordion>
         </>

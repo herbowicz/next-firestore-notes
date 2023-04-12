@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Container, Nav, Navbar, Image } from 'react-bootstrap'
 import Link from 'next/link'
-import { useAuth } from '../context/authContext'
-
-import { useDbUser } from '../context/userContext'
 import { useRouter } from 'next/router'
+
+import { useAuth } from '../context/authContext'
+import { useDbUser } from '../context/userContext'
 
 const NavbarComp = () => {
     const { user, logout } = useAuth()

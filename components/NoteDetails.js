@@ -5,19 +5,45 @@ import {
     getDoc,
     getDocs,
     collection,
+    query,
+    where,
     updateDoc,
     deleteDoc
 } from 'firebase/firestore'
-import { Button } from 'react-bootstrap'
-import NoteForm from  './NoteForm'
+import { Button, Image, Row, Col } from 'react-bootstrap'
+import NoteForm from './NoteForm'
 
-const dbInstance = collection(database, 'notes');
 
 export default function NoteDetails({ ID }) {
     const [singleNote, setSingleNote] = useState({})
-    const [isEdit, setIsEdit] = useState(false);
-    const [title, setNoteTitle] = useState('');
-    const [desc, setNoteDesc] = useState('');
+    const [isEdit, setIsEdit] = useState(false)
+    const [title, setNoteTitle] = useState('')
+    const [desc, setNoteDesc] = useState('')
+    const [profile, setProfile] = useState({})
+
+    useEffect(() => {
+        const getSingleNote = async () => {
+            if (ID) {
+                const singleNote = doc(database, 'notes', ID)
+                const data = await getDoc(singleNote)
+                setSingleNote({ ...data.data(), id: data.id })
+            }
+        }
+
+        getSingleNote();
+    }, [ID, setSingleNote])
+
+    useEffect(() => {
+        const getProfile = async () => {
+            if (singleNote?.noteAuthor) {
+                const singleProfile = doc(database, 'users', singleNote.noteAuthor)
+                const data = await getDoc(singleProfile)
+                setProfile({ ...data.data(), id: data.id })
+            }
+
+        }
+        getProfile()
+    }, [singleNote])
 
     const getNotes = () => {
         getDocs(dbInstance)
@@ -34,22 +60,6 @@ export default function NoteDetails({ ID }) {
         setNoteDesc(singleNote.noteDesc)
     }
 
-    useEffect(() => {
-        getNotes();
-    }, [])
-
-    useEffect(() => {
-        const getSingleNote = async () => {
-            if (ID) {
-                const singleNote = doc(database, 'notes', ID)
-                const data = await getDoc(singleNote)
-                setSingleNote({ ...data.data(), id: data.id })
-            }
-        }
-        
-        getSingleNote();
-    }, [ID, setSingleNote])
-
     const editNote = (e, title, desc) => {
         e.preventDefault()
         const collectionById = doc(database, 'notes', singleNote.id)
@@ -59,10 +69,11 @@ export default function NoteDetails({ ID }) {
         updateDoc(collectionById, {
             noteTitle: title,
             noteDesc: desc,
-        })
-            .then(() => {
-                window.location.reload()
+            noteModified: new Date()
             })
+        .then(() => {
+            window.location.reload()
+        })
     }
 
     const deleteNote = (id) => {
@@ -73,18 +84,36 @@ export default function NoteDetails({ ID }) {
                 window.location.reload()
             })
     }
+
+    const formatDate = date => new Date(date.seconds*1000).toLocaleString("en-EN", {
+        year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit"
+    })
+
     return (
         <>
             {isEdit ? (
                 <div>
-                    <NoteForm mode='update' submit={editNote} content={{title, desc}}/>
+                    <NoteForm mode='update' submit={editNote} content={{ title, desc }} />
                 </div>
             ) : (
                 <>
                     <div>
-                        <h6>By {singleNote?.noteAuthor}</h6>
-                        <h1>{singleNote?.noteTitle}</h1>
-                        <div dangerouslySetInnerHTML={{ __html: singleNote?.noteDesc }}></div>
+                        <Row>
+                            {singleNote?.noteCreated  && <Col>Created: {formatDate(singleNote.noteCreated)}</Col>}
+                            {singleNote?.noteModified && <Col>Last modified: {formatDate(singleNote.noteModified)}</Col>}
+                        </Row>
+                        <p>
+                            <Image src={profile?.photoURL} width='30' height='30' alt='' />
+                            {' '}
+                            By {profile?.nickname || profile?.displayName || singleNote?.noteAuthor} ({profile?.points})
+                        </p>
+
+                        <Row>
+                            <h1>{singleNote?.noteTitle}</h1>
+                        </Row>
+                        <Row>
+                            <div dangerouslySetInnerHTML={{ __html: singleNote?.noteDesc }}></div>
+                        </Row>
                     </div>
                 </>
             )}
