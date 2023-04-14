@@ -2,21 +2,19 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/style.css'
 import Navbar from '../components/Navbar'
 import { useRouter } from 'next/router'
-import { Fuego, FuegoProvider } from '@nandorojo/swr-firestore'
-import { firebaseConfig } from '../firebase'
+import {  FuegoProvider } from '@nandorojo/swr-firestore'
 import { AuthContextProvider } from '../context/authContext'
 import UserContextProvider from '../context/userContext'
 import ProtectedRoute from '../components/ProtectedRoute'
+import { app } from '../firebase'
 
 const noAuthRequired = ['/', '/login', '/signup']
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
-  const fuego = new Fuego(firebaseConfig)
-
   return (
-  <FuegoProvider fuego={fuego}>
+  <FuegoProvider fuego={app}>
     <AuthContextProvider>
       <UserContextProvider>
         <Navbar />

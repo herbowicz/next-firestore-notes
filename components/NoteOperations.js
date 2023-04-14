@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import { Container, Row, Col, Card, Image } from 'react-bootstrap'
 import Button from './Button'
 import { collection, addDoc, getDocs } from 'firebase/firestore'
-import { useCollection } from '@nandorojo/swr-firestore'
 import { database } from '../firebase'
 import { useAuth } from '../context/authContext'
 import NoteForm from './NoteForm'
 import NoteDetails from './NoteDetails'
 import { formatDate } from '../utils/functions'
+import { useCollection } from '@nandorojo/swr-firestore'
 
 const NoteOperations = ({ getSingleNote, ID }) => {
     const [isInputVisible, setInputVisible] = useState(false);
