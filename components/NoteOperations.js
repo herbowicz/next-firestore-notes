@@ -82,7 +82,7 @@ const NoteOperations = ({ getSingleNote, ID }) => {
                                 return (
                                     <Col key={note.id} eventKey={i} onClick={() => getSingleNote(note.id)}>
                                         <Card className="my-1 bg-light" style={{ minWidth: '18rem', cursor: 'pointer' }}>
-                                            {/* <Image className="card-img-top" src={getImage(i)} alt="Card image cap" /> */}
+                                            {i === 0 && <Image className="card-img-top" src={getImage(i)} alt="Card image cap" /> }
                                             <Card.Header>
                                                 <Card.Title className="me-auto">{note.noteTitle}</Card.Title>
                                                 <Card.Text>{formatDate(note.noteModified || note.noteCreated)}</Card.Text>
