@@ -82,7 +82,6 @@ export default function UserDetails() {
             )}
             <div className='my-2'>
                 <Button onClick={() => {
-                    console.log('!!!!')
                     getEditData()
                 }} variant="success">
                     {isEdit ? 'Close' : 'Edit'}

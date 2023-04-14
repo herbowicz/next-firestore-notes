@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import Button from './Button';
 import Form from 'react-bootstrap/Form';
 
 const NoteForm = ({ mode, submit, content }) => {
@@ -20,22 +20,22 @@ const NoteForm = ({ mode, submit, content }) => {
     return (
         <>
             <Form onSubmit={e => submit(e, title, desc)}>
-                <Form.Group>  
+                <Form.Group className='mt-3'>  
                     <Form.Label>Title</Form.Label>
                     <Form.Control type="text" placeholder="Enter the Title..." 
                         onChange={updateTitle}
                         value={ title }></Form.Control>
                 </Form.Group>
 
-                <Form.Group>
+                <Form.Group className='my-3'>
                     <Form.Label>Content</Form.Label>
-                    <Form.Control as="textarea" type="text" placeholder="Your story..." 
+                    <Form.Control as="textarea" rows="10" type="text" placeholder="Your story..." 
                         onChange={updateDesc}
                         value={ desc }></Form.Control>
                 </Form.Group>
 
-                <Button className='mt-2' variant="primary" type="submit">
-                    {mode === 'update' ? 'Update' : 'Save'} Note
+                <Button variant="secondary" type="submit">
+                    {mode === 'update' ? 'Update' : 'Save'}
                 </Button>
             </Form>
         </>

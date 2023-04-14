@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Button, Accordion, Container, Row, Col, Toast } from 'react-bootstrap'
+import { Container, Row, Col, Card, Image } from 'react-bootstrap'
+import Button from './Button'
 import { collection, addDoc, getDocs } from 'firebase/firestore'
 import { database } from '../firebase'
 import { useAuth } from '../context/authContext'
@@ -26,7 +27,7 @@ const NoteOperations = ({ getSingleNote, ID }) => {
             noteTitle: title,
             noteDesc: desc,
             noteCreated: new Date(),
-            noteModified: null
+            noteModified: undefined
         })
             .then(() => {
                 setNoteTitle('')
@@ -38,13 +39,15 @@ const NoteOperations = ({ getSingleNote, ID }) => {
 
     const getNotes = () => {
         getDocs(collection(database, 'notes'))
-            .then((data) => {
-                setNotesArray(data.docs
-                    .map((item) => {
-                        return { ...item.data(), id: item.id }
-                    })
-                )
-            })
+            .then((data) =>  setNotesArray(data.docs
+                .map(item => ({ ...item.data(), id: item.id }))       
+                .sort((a, b) => {
+                    const aDate = a.noteModified?.seconds || a.noteCreated.seconds
+                    const bDate = b.noteModified?.seconds || b.noteCreated.seconds
+                    return bDate - aDate
+                })
+            ))
+            
     }
 
 
@@ -52,44 +55,46 @@ const NoteOperations = ({ getSingleNote, ID }) => {
         getNotes()
     }, [])
 
+    const getImage = i => {
+        //gs://next-firestore-notes.appspot.com/170.png
+        const url = `https://storage.cloud.google.com/next-firestore-notes.appspot.com/cards/a2p.dev-banner.png`
+        return url
+    }
+
     return (
         <>
-            <Button onClick={inputToggle}>
-                Add a New Note
+            <Button variant="secondary" onClick={inputToggle}>
+                {isInputVisible ? 'Close' : 'Add'}
             </Button>
 
-            {isInputVisible && (
-                <div>
-                    <NoteForm mode='save' submit={saveNote} />
-                </div>
-            )}
+            {isInputVisible &&  <NoteForm mode='save' submit={saveNote} />}
 
-            <Row className='mt-3'>
+            <Row className='mt-3'> 
+                {ID && (
+                    <Col className='col-md-auto' style={{ minWidth: '18rem' }}>
+                        <NoteDetails ID={ID} />
+                    </Col>
+                )}
                 <Col>
                     <Row>
-                        {notesArray
-                            // .sort((a, b) => a.noteUpdated < b.noteUpdated)
+                        {notesArray[0] && notesArray
                             .map((note, i) => {
                                 return (
                                     <Col key={note.id} eventKey={i} onClick={() => getSingleNote(note.id)}>
-                                        <Toast className="my-1">
-                                            <Toast.Header>
-                                                <strong className="me-auto">{note.noteTitle}</strong>
-                                                <small>{formatDate(note.noteModified)}</small>
-                                            </Toast.Header>
-                                            <Toast.Body>{note.noteDesc.substring(0, 80)} [...]</Toast.Body>
-                                        </Toast>
+                                        <Card className="my-1 bg-light" style={{ minWidth: '18rem', cursor: 'pointer' }}>
+                                            {/* <Image className="card-img-top" src={getImage(i)} alt="Card image cap" /> */}
+                                            <Card.Header>
+                                                <Card.Title className="me-auto">{note.noteTitle}</Card.Title>
+                                                <Card.Text>{formatDate(note.noteModified || note.noteCreated)}</Card.Text>
+                                            </Card.Header>
+                                            <Card.Body>{note.noteDesc.substring(0, 160)} [...]</Card.Body>
+                                        </Card>
                                     </Col>
                                 )
                             })
                         }
                     </Row>
                 </Col>
-                {ID && (
-                    <Col>
-                        <NoteDetails ID={ID} />
-                    </Col>
-                )}
             </Row>
 
         </>

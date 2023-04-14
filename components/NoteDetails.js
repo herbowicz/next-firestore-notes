@@ -89,17 +89,16 @@ const NoteDetails = ({ ID }) => {
             ) : (
                 <>
                     <div>
-                        <Row>
-                            {singleNote?.noteCreated  && <Col>Created: {formatDate(singleNote.noteCreated)}</Col>}
-                            {singleNote?.noteModified && <Col>Last modified: {formatDate(singleNote.noteModified)}</Col>}
+                        <Row className='mb-2'>     
+                            {singleNote?.noteCreated  && <Col><small>Created: {formatDate(singleNote.noteCreated)}</small></Col>}
+                            {singleNote?.noteModified && <Col><small>Last modified: {formatDate(singleNote.noteModified)}</small></Col>}
                         </Row>
-                        <p>
-                            <Image src={profile?.photoURL} width='30' height='30' alt='' />
+                        <p >
+                            <Image src={profile?.photoURL} width='35' height='35' alt='' />
                             {' '}
-                            By {profile?.nickname || profile?.displayName || singleNote?.noteAuthor} ({profile?.points})
+                            By <strong>{profile?.nickname || profile?.displayName || singleNote?.noteAuthor}</strong> ({profile?.points})
                         </p>
-
-                        <Row>
+                        <Row className='mb-2'>
                             <h1>{singleNote?.noteTitle}</h1>
                         </Row>
                         <Row>
@@ -108,7 +107,7 @@ const NoteDetails = ({ ID }) => {
                     </div>
                 </>
             )}
-            <div className='my-2'>
+            <div className='my-4'>
                 <Button onClick={getEditData} variant="success">
                     {isEdit ? 'Close' : 'Edit'}
                 </Button>
