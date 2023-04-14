@@ -71,18 +71,18 @@ const NoteOperations = ({ getSingleNote, ID }) => {
 
             <Row className='mt-3'> 
                 {ID && (
-                    <Col className='col-md-auto' style={{ minWidth: '18rem' }}>
+                    <Col className='col-12 col-md-8' style={{ minWidth: '18rem' }}>
                         <NoteDetails ID={ID} />
                     </Col>
                 )}
-                <Col>
+                <Col className={`col-12${ID && ' col-md-4'}`}>
                     <Row>
                         {notesArray[0] && notesArray
-                            .map((note, i) => {
+                            .map((note, i, arr) => {
                                 return (
                                     <Col key={note.id} eventKey={i} onClick={() => getSingleNote(note.id)}>
                                         <Card className="my-1 bg-light" style={{ minWidth: '18rem', cursor: 'pointer' }}>
-                                            {i === 0 && <Image className="card-img-top" src={getImage(i)} alt="Card image cap" /> }
+                                            {i === (Math.floor(Math.random() * arr.length)) && <Image className="card-img-top" src={getImage(i)} alt="Card image cap" /> }
                                             <Card.Header>
                                                 <Card.Title className="me-auto">{note.noteTitle}</Card.Title>
                                                 <Card.Text>{formatDate(note.noteModified || note.noteCreated)}</Card.Text>

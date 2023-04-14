@@ -29,7 +29,7 @@ const NoteForm = ({ mode, submit, content }) => {
 
                 <Form.Group className='my-3'>
                     <Form.Label>Content</Form.Label>
-                    <Form.Control as="textarea" rows="10" type="text" placeholder="Your story..." 
+                    <Form.Control as="textarea" rows="7" type="text" placeholder="Your story..." 
                         onChange={updateDesc}
                         value={ desc }></Form.Control>
                 </Form.Group>

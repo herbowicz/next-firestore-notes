@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 
-function StyledButton({ children, onClick, variant }) {
+function StyledButton({ children, onClick, variant, type }) {
     return (
         <>
             <style type="text/css">
@@ -28,11 +28,11 @@ function StyledButton({ children, onClick, variant }) {
                 `}
             </style>
 
-            <Button variant={variant} onClick={onClick} size='normal'>
+            <Button variant={variant} type={type} onClick={onClick} size='normal'>
                 { children }
             </Button>
         </>
     );
 }
 
-export default StyledButton;
+export default StyledButton
