@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Container, Row, Col, Card, Image } from 'react-bootstrap'
 import Button from './Button'
 import { collection, addDoc, getDocs } from 'firebase/firestore'
+import { useCollection } from '@nandorojo/swr-firestore'
 import { database } from '../firebase'
 import { useAuth } from '../context/authContext'
 import NoteForm from './NoteForm'
@@ -19,6 +20,8 @@ const NoteOperations = ({ getSingleNote, ID }) => {
     }
 
     const dbInstance = collection(database, 'notes')
+
+    const { data, update, error } = useCollection('notes', { listen: true })
 
     const saveNote = (e, title, desc) => {
         e.preventDefault()
@@ -38,18 +41,14 @@ const NoteOperations = ({ getSingleNote, ID }) => {
     }
 
     const getNotes = () => {
-        getDocs(collection(database, 'notes'))
-            .then((data) =>  setNotesArray(data.docs
-                .map(item => ({ ...item.data(), id: item.id }))       
-                .sort((a, b) => {
-                    const aDate = a.noteModified?.seconds || a.noteCreated.seconds
-                    const bDate = b.noteModified?.seconds || b.noteCreated.seconds
-                    return bDate - aDate
-                })
-            ))
-            
+        const sortedNotes = data
+            .sort((a, b) => {
+                const aDate = a.noteModified?.seconds || a.noteCreated.seconds
+                const bDate = b.noteModified?.seconds || b.noteCreated.seconds
+                return bDate - aDate
+            })
+        setNotesArray({ ...sortedNotes, id: item.id })
     }
-
 
     useEffect(() => {
         getNotes()
@@ -67,9 +66,9 @@ const NoteOperations = ({ getSingleNote, ID }) => {
                 {isInputVisible ? 'Close' : 'Add'}
             </Button>
 
-            {isInputVisible &&  <NoteForm mode='save' submit={saveNote} />}
+            {isInputVisible && <NoteForm mode='save' submit={saveNote} />}
 
-            <Row className='mt-3'> 
+            <Row className='mt-3'>
                 {ID && (
                     <Col className='col-12 col-md-8' style={{ minWidth: '18rem' }}>
                         <NoteDetails ID={ID} />
@@ -82,7 +81,7 @@ const NoteOperations = ({ getSingleNote, ID }) => {
                                 return (
                                     <Col key={note.id} eventKey={i} onClick={() => getSingleNote(note.id)}>
                                         <Card className="my-1 bg-light" style={{ minWidth: '18rem', cursor: 'pointer' }}>
-                                            {i === (Math.floor(Math.random() * arr.length)) && <Image className="card-img-top" src={getImage(i)} alt="Card image cap" /> }
+                                            {i === (Math.floor(Math.random() * arr.length)) && <Image className="card-img-top" src={getImage(i)} alt="Card image cap" />}
                                             <Card.Header>
                                                 <Card.Title className="me-auto">{note.noteTitle}</Card.Title>
                                                 <Card.Text>{formatDate(note.noteModified || note.noteCreated)}</Card.Text>

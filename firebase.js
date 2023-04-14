@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { initializeFirestore } from "firebase/firestore"
 import { getAuth } from 'firebase/auth'
 
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -13,6 +13,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig)
+
 export const auth = getAuth(app)
 
 export const database = initializeFirestore(app, {ignoreUndefinedProperties: true})
