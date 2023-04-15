@@ -1,7 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { initializeFirestore } from "firebase/firestore"
 import { getAuth } from 'firebase/auth'
-import { Fuego } from '@nandorojo/swr-firestore'
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,8 +12,7 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-export const app = new Fuego(firebaseConfig) // initializeApp(firebaseConfig)
-
+const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
 
 export const database = initializeFirestore(app, {ignoreUndefinedProperties: true})
