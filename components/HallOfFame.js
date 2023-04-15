@@ -18,7 +18,7 @@ const HallOfFame = () => {
 	}, [])
 
 	return (
-		<Table striped bordered hover>
+        <Table striped bordered hover>
 			<thead>
 				<tr>
 					<th>#</th>
@@ -31,7 +31,11 @@ const HallOfFame = () => {
 				{users
 					.sort((a, b) => (a.points < b.points) ? 1 : -1)
 					.map((el, i) => (
-						<Link key={i} href={`/u/${el?.nickname || el?.displayName || el.email}`} passHref>
+						<Link
+                            key={i}
+                            href={`/u/${el?.nickname || el?.displayName || el.email}`}
+                            passHref
+                            legacyBehavior>
 							<tr>
 								<td>{i + 1}</td>
 								<td>
@@ -47,7 +51,7 @@ const HallOfFame = () => {
 					))}
 			</tbody>
 		</Table>
-	)
+    );
 }
 
 export default HallOfFame

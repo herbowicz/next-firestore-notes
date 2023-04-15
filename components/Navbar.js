@@ -15,7 +15,7 @@ const NavbarComp = () => {
     return (
         <Navbar bg="light" expand="lg" collapseOnSelect>
             <Container>
-                <Link href="/" passHref>
+                <Link href="/" passHref legacyBehavior>
                     <Navbar.Brand>
                         {user && <Image
                             style={{
@@ -41,25 +41,28 @@ const NavbarComp = () => {
                     <Nav className="ms-auto">
                         {user ? (
                             <>
-                                <Link href="/dashboard" passHref>
+                                <Link href="/dashboard" passHref legacyBehavior>
                                     <Nav.Link>Dashboard</Nav.Link>
                                 </Link>
-                                <Link href="/records" passHref>
+                                <Link href="/records" passHref legacyBehavior>
                                     <Nav.Link>Records</Nav.Link>
                                 </Link>
-                                <Link href="/wheel" passHref>
+                                <Link href="/wheel" passHref legacyBehavior>
                                     <Nav.Link>Wheel</Nav.Link>
                                 </Link>
-                                <Link href={{
-                                    pathname: `/u/${dbUser?.nickname || user.displayName}`,
-                                    // query: { email: user.email }
-                                }} passHref>
+                                <Link
+                                    href={{
+                                        pathname: `/u/${dbUser?.nickname || user.displayName}`,
+                                        // query: { email: user.email }
+                                    }}
+                                    passHref
+                                    legacyBehavior>
                                     <Nav.Link>Profile</Nav.Link>
                                 </Link>
-                                <Link href="/documents" passHref>
+                                <Link href="/documents" passHref legacyBehavior>
                                     <Nav.Link>Documents</Nav.Link>
                                 </Link>
-                                <Link href="/edit" passHref>
+                                <Link href="/edit" passHref legacyBehavior>
                                     <Nav.Link>Edit</Nav.Link>
                                 </Link>
                                 <Nav.Link
@@ -73,10 +76,10 @@ const NavbarComp = () => {
                             </>
                         ) : (
                             <>
-                                <Link href="/signup" passHref>
+                                <Link href="/signup" passHref legacyBehavior>
                                     <Nav.Link>Signup</Nav.Link>
                                 </Link>
-                                <Link href="/login" passHref>
+                                <Link href="/login" passHref legacyBehavior>
                                     <Nav.Link>Login</Nav.Link>
                                 </Link>
                             </>
@@ -85,7 +88,7 @@ const NavbarComp = () => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-    )
+    );
 }
 
 export default NavbarComp
