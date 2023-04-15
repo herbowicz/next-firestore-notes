@@ -20,4 +20,5 @@ module.exports = withPWA({
   images: {
     domains: ['firebasestorage.googleapis.com', 'lh3.googleusercontent.com'],
   },
+  experimental: { appDir: true },
 })

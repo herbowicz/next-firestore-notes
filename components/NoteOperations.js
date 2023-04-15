@@ -80,7 +80,7 @@ const NoteOperations = ({ getSingleNote, ID }) => {
                         {notesArray[0] && notesArray
                             .map((note, i, arr) => {
                                 return (
-                                    <Col key={note.id} eventKey={i} onClick={() => getSingleNote(note.id)}>
+                                    <Col key={note.id} onClick={() => getSingleNote(note.id)}>
                                         <Card className="my-1 bg-light" style={{ minWidth: '18rem', cursor: 'pointer' }}>
                                             {i === (Math.floor(Math.random() * arr.length)) && <Image className="card-img-top" src={getImage(i)} alt="Card image cap" /> }
                                             <Card.Header>
