@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  minheight: 100vh;
+  min-height: 100vh;
 }
 
 /* chat box section */

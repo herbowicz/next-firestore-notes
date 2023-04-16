@@ -46,6 +46,7 @@ export default function RealtimePosts({ serverPosts }) {
     }}>
         <div className={styles.container}>
             <div className={styles.chatbox}>
+                
                 <div className={styles.top}>
                     Chat
                 </div>
@@ -53,7 +54,6 @@ export default function RealtimePosts({ serverPosts }) {
                 <div className={styles.chats}>
                     {[...posts].reverse().map((el, i) => (
                         <div key={el.id} className={i % 2 && styles.mychat}>
-
                             <div key={el.id} className={styles.post} style={{
                                     background: i % 2 ? '#4f5d73c7' : '#77b3d4c7'
                                 }}>
@@ -71,48 +71,15 @@ export default function RealtimePosts({ serverPosts }) {
                                     </span>
                                 </div>
                             </div>
-
                         </div>
                     ))}
-
                 </div>
 
                 <Message />
 
-                {/* <div className={styles.chatinput} id="chatbox">
-                    <form action="../htbin/chatsend.py" method="post" id="searchForm" className={styles.chatinput}>
-                        <input type="text" name="msg" placeholder="Username" />
-                        <input type="text" name="msg" placeholder="Enter Message" />
-                        <button className={styles.sendbtn} type="submit">
-                            <img src="../images/send.png" alt="send-btn" />
-                        </button>
-                    </form>
-                </div> */}
             </div>
         </div>
 
-        
-
-        {/* {posts.map(el => (
-            <>
-                <br />
-                <div key={el.id} className={styles.post}>
-                    <div className={styles.timer}>
-                        {getTimer(el.created_at)}
-                    </div>
-                    <div style={{
-                        margin: '0 7px 0 5px'
-                    }}>
-                        <span className={styles.avatar}>
-                            {el.author.charAt(0)}
-                        </span>
-                        <span className={styles.title}>
-                            {el.title}
-                        </span>
-                    </div>
-                </div>
-            </>
-        ))} */}
     </div>
 }
 

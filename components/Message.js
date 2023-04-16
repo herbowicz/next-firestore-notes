@@ -28,25 +28,20 @@ export default function Message() {
                 author: author || 'user'
             })
             setMessage('')
-        }}
-            style={{
-                height: 55,
-                border: '3px solid teal'
-            }}>
-            <div style={{
-                display: 'flex',
-            }}>
-                <input type="text"
-                    placeholder="Your message here..."
-                    onChange={handleChange}
-                    value={message} 
-                    style={{
-                        flex: 1,
-                        fontSize: 18,
-                        paddingLeft: 10,
-                    }}/>
-                <Button variant="outline-dark">+</Button>
-            </div>
+        }} style={{
+            display: 'flex',
+            marginTop: 5
+        }}>
+            <input type="text"
+                placeholder="Your message here..."
+                onChange={handleChange}
+                value={message}
+                style={{
+                    flex: 1,
+                    fontSize: 18,
+                    paddingLeft: 10
+                }} />
+            <Button variant="outline-dark">+</Button>
 
         </form>
     )
