@@ -1,5 +1,6 @@
 'use client'
 
+import styles from './Message.module.css'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/authContext'
 import { addMessage } from '../utils/crud'
@@ -21,27 +22,21 @@ export default function Message() {
     }
 
     return (
-        <form onSubmit={e => {
+        <form className={styles.form} onSubmit={e => {
             e.preventDefault()
             addMessage({
                 title: message,
                 author: author || 'user'
             })
             setMessage('')
-        }} style={{
-            display: 'flex',
-            marginTop: 5
         }}>
             <input type="text"
+                className={styles.input} 
                 placeholder="Your message here..."
                 onChange={handleChange}
                 value={message}
-                style={{
-                    flex: 1,
-                    fontSize: 18,
-                    paddingLeft: 10
-                }} />
-            <Button variant="outline-dark">+</Button>
+            />
+            <button className={styles.button} variant="outline-dark">+</button>
 
         </form>
     )

@@ -47,9 +47,13 @@ export default function RealtimePosts({ serverPosts }) {
         <div className={styles.container}>
             <div className={styles.chatbox}>
                 
-                <div className={styles.top}>
-                    Chat
+                <div className={styles.top} style={{
+                    color: '#ddd',
+                    fontFamily: "'bungee-rotated', 'Bungee', cursive"
+                }}>
+                    a2p.dev
                 </div>
+
 
                 <div className={styles.chats}>
                     {[...posts].reverse().map((el, i) => (
