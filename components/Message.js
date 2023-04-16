@@ -23,7 +23,11 @@ export default function Message() {
     }
 
     return (
-        <Form className='mt-3 d-inline-flex'
+        <Form style={{
+            position: 'sticky',
+            bottom: 0,
+            background: 'teal'
+        }}
             onSubmit={e => {
             e.preventDefault()
             addMessage({
