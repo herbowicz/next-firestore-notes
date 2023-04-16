@@ -44,6 +44,9 @@ const NavbarComp = () => {
                                 <Link href="/dashboard" passHref legacyBehavior>
                                     <Nav.Link>Dashboard</Nav.Link>
                                 </Link>
+                                <Link href="/realtime" passHref legacyBehavior>
+                                    <Nav.Link>Chat</Nav.Link>
+                                </Link>
                                 <Link href="/records" passHref legacyBehavior>
                                     <Nav.Link>Records</Nav.Link>
                                 </Link>
