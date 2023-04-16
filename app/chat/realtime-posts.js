@@ -51,12 +51,13 @@ export default function RealtimePosts({ serverPosts }) {
                     margin: '5px 10px 5px 0',
                     width: 'auto',
                     display: 'inline-block',
-                    background: '#ededed'
+                    background: `rgba(234,122,232,.2)`,
+                    fontFamily: 'Verdana', 
                 }}>
                     <div style={{
-                        marginLeft: 36,
-                        fontSize: 12,
-                        color: 'grey'
+                        marginLeft: 38,
+                        fontSize: 11,
+                        color: '#aaa'
                     }}>
                         {getTimer(el.created_at)}
                     </div>
@@ -68,17 +69,19 @@ export default function RealtimePosts({ serverPosts }) {
                             color: 'white',
                             display: 'inline-block',
                             textAlign: 'center',
-                            fontSize: 25,
+                            fontSize: 27,
+                            lineHeight: 1,
                             width: 30,
                             height: 30,
-                            borderRadius: '50%'
+                            borderRadius: '50%',
+                            fontFamily: 'Luminari',
                         }}>
                             {el.author.charAt(0)}
                         </span>
                         <span style={{
                             marginLeft: 5,
-                            color: '#20344f',
-                            fontSize: 20,
+                            color: '#eee',
+                            fontSize: 17,
                             width: 30,
                             height: 30,
 

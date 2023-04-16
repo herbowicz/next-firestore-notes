@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "bungee-rotated";
+    src: url("../public/fonts/bungee-rotated.otf");
+}
+
+
+body {
+    background: #09C091;
+    background: -webkit-radial-gradient(bottom, #09C091, #6D4D99);
+    background: -moz-radial-gradient(bottom, #09C091, #6D4D99);
+    background: radial-gradient(to top, #09C091, #6D4D99);
+}
