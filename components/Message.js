@@ -30,7 +30,7 @@ export default function Message() {
             setMessage('')
         }}
             style={{
-
+                height: 55,
                 border: '3px solid teal'
             }}>
             <div style={{
