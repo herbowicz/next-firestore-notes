@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../context/authContext'
 import { addMessage } from '../utils/crud'
 import Button from './Button';
-import Form from 'react-bootstrap/Form'
-import { Input } from 'react-bootstrap'
 
 export default function Message() {
     const [message, setMessage] = useState('')
@@ -23,27 +21,34 @@ export default function Message() {
     }
 
     return (
-        <Form style={{
-            position: 'sticky',
-            bottom: 0,
-            background: 'teal'
-        }}
-            onSubmit={e => {
+        <form onSubmit={e => {
             e.preventDefault()
             addMessage({
                 title: message,
                 author: author || 'user'
             })
             setMessage('')
-        }}>
-            <Form.Group>  
-                <Form.Control type="text" 
-                    placeholder="Your message here..." 
+        }}
+            style={{
+                position: 'sticky',
+                bottom: 0,
+                border: '6px solid teal'
+            }}>
+            <div style={{
+                display: 'flex',
+            }}>
+                <input type="text"
+                    placeholder="Your message here..."
                     onChange={handleChange}
-                    value={message}>
-                </Form.Control>
-            </Form.Group>
-            <Button variant="outline-dark">+</Button>
-        </Form>
+                    value={message} 
+                    style={{
+                        flex: 1,
+                        fontSize: 18,
+                        paddingLeft: 10,
+                    }}/>
+                <Button variant="outline-dark">+</Button>
+            </div>
+
+        </form>
     )
 }

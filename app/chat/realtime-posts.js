@@ -39,7 +39,7 @@ export default function RealtimePosts({ serverPosts }) {
     }, [posts])
 
     return <div style={{
-        height: 'calc(100vh - 100px)'
+        height: 'calc(100vh - 90px)'
     }}>
         {posts.map(el => (
             <>
