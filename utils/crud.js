@@ -7,7 +7,7 @@ export const addMessage = async ({ title, author }) => {
         author
     }
 
-    console.log('>>>>', input)
+    console.log(input)
 
     let { error } = await supabase.from('posts').upsert(input)
 

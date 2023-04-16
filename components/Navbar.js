@@ -1,7 +1,9 @@
+'use client'
+
 import React from 'react'
 import { Container, Nav, Navbar, Image } from 'react-bootstrap'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 import { useAuth } from '../context/authContext'
 import { useDbUser } from '../context/userContext'
@@ -44,7 +46,7 @@ const NavbarComp = () => {
                                 <Link href="/dashboard" passHref legacyBehavior>
                                     <Nav.Link>Dashboard</Nav.Link>
                                 </Link>
-                                <Link href="/realtime" passHref legacyBehavior>
+                                <Link href="/chat" passHref legacyBehavior>
                                     <Nav.Link>Chat</Nav.Link>
                                 </Link>
                                 <Link href="/records" passHref legacyBehavior>

@@ -15,7 +15,6 @@ export default function RealtimePost({ serverPost }) {
                 table: 'posts',
                 filter: `id=eq.${post.id}`
             }, (payload) => {
-                console.log('to jest payoloa', payload.new)
                 setPost(payload.new)
             })
             .subscribe()
