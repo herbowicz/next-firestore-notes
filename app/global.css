@@ -1,4 +1,8 @@
 body {
-/* Created with https://www.css-gradient.com */
-background: #20344f;
+    background: #20344f;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }

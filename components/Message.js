@@ -30,9 +30,8 @@ export default function Message() {
             setMessage('')
         }}
             style={{
-                position: 'sticky',
-                bottom: 0,
-                border: '6px solid teal'
+
+                border: '3px solid teal'
             }}>
             <div style={{
                 display: 'flex',

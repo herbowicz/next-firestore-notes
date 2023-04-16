@@ -1,5 +1,6 @@
 'use client'
 
+import styles from './Chat.module.css'
 import { useState, useEffect } from 'react'
 import supabase from '../../utils/supabase'
 import { getTimer } from '../../utils/functions'
@@ -39,8 +40,42 @@ export default function RealtimePosts({ serverPosts }) {
     }, [posts])
 
     return <div style={{
-        height: 'calc(100vh - 90px)'
+
     }}>
+        <div className={styles.container}>
+            <div className={styles.chatbox}>
+                <div className={styles.client}>
+                    <img src="../images/Favicon.svg" alt="logo"/>
+                    <div className={styles.clientinfo}>
+                        <h2>Message</h2>
+                        <p>online</p>
+                    </div>
+                </div>
+
+                <div className={styles.chats} id="message">
+                    <div className={styles.clientchat}>Hi There!</div>
+                    <div className={styles.myChat}>Please type your username then your message</div>
+
+                    <div className={styles.mychat}>Test 1</div>
+                    <div className={styles.mychat}>Test 2</div>
+                    {posts.map(el => (
+                        <div key={el.id} className={styles.mychat}>{el.title}</div>
+                    ))}
+
+                </div>
+
+                <div className={styles.chatinput} id="chatbox">
+                    <form action="../htbin/chatsend.py" method="post" id="searchForm"  className={styles.chatinput}>
+                        <input type="text" name="msg" placeholder="Username" />
+                        <input type="text" name="msg" placeholder="Enter Message" />
+                        <button className={styles.sendbtn} type="submit">
+                            <img src="../images/send.png" alt="send-btn" />
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+{/*         
         {posts.map(el => (
             <>
                 <br />
@@ -52,7 +87,7 @@ export default function RealtimePosts({ serverPosts }) {
                     width: 'auto',
                     display: 'inline-block',
                     background: `rgba(234,122,232,.2)`,
-                    fontFamily: 'Verdana', 
+                    fontFamily: 'Arial', 
                 }}>
                     <div style={{
                         marginLeft: 38,
@@ -91,7 +126,7 @@ export default function RealtimePosts({ serverPosts }) {
                     </div>
                 </div>
             </>
-        ))}
+        ))} */}
     </div>
 }
 
