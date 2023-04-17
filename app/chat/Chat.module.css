@@ -27,9 +27,9 @@
   height: 20px;
 
   background-color: rgba(222, 22, 142, 0.4);
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 10px 20px;
-  margin: 5px 10px;
+  margin: 5px 7px;
   color: #ddd;
 
   border-color: #00AA66;
@@ -44,7 +44,7 @@
   color: #fff;
   position: relative;
   font-size: 0.9em;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 112px);
   overflow-y: scroll;
   display: flex;
   flex-direction: column-reverse;

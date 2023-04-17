@@ -7,6 +7,8 @@
     border: 1px solid #2d9fd9;
     color: #a0d18c;
     padding: 5px;
+    height: 30px;
+    margin: 5px;
 }
 
 input[type="text"].input {
@@ -17,6 +19,7 @@ input[type="text"].input {
     outline: none;
     padding-left: 10px;
     background: transparent;
+    padding-right: 15px;
 }
 
 input[type="text"].input:focus {
@@ -25,14 +28,16 @@ input[type="text"].input:focus {
 }
 
 .button {
-    width: 50px;
+    width: 60px;
     height: 40px;
     cursor: pointer;
     background: transparent;
     color: #00AA66;
     border-color: #00AA66;
     border-style: solid;
-    border-radius: 0 30% 30% 0;
+    border-radius: 0 20px 20px 0;
+    margin: -5px;
+    padding: 0;
 }
 .button:hover {
     background: #00AA66;
