@@ -4,7 +4,6 @@ import styles from './Message.module.css'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/authContext'
 import { addMessage } from '../utils/crud'
-import Button from './Button';
 
 export default function Message() {
     const [message, setMessage] = useState('')
@@ -12,7 +11,7 @@ export default function Message() {
     const [author, setAuthor] = useState()
 
     useEffect(() => {
-        user && setAuthor(user?.displayName || user?.email || 'user')
+        user && setAuthor(user?.email || 'anonymous')
 
         console.log(user)
     }, [user])
@@ -26,7 +25,7 @@ export default function Message() {
             e.preventDefault()
             addMessage({
                 title: message,
-                author: author || 'user'
+                author: author || 'anonymous'
             })
             setMessage('')
         }}>

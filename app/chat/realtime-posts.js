@@ -5,23 +5,12 @@ import { useState, useEffect } from 'react'
 import supabase from '../../utils/supabase'
 import { getTimer } from '../../utils/functions'
 import Message from '../../components/Message'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function RealtimePosts({ serverPosts }) {
     const [posts, setPosts] = useState(serverPosts)
-    const [message, setMessage] = useState('')
-
-    const submitOnEnter = (event) => {
-        event.preventDefault()
-        if (event.keyCode === 13) {
-            // onSubmit(message)
-            setMessage('')
-        }
-    }
-
-    const handleChange = (event) => {
-        console.log('bum')
-        setMessage(event.target.value);
-    };
+    const router = useRouter()
 
     useEffect(() => {
         const channel = supabase
@@ -40,27 +29,31 @@ export default function RealtimePosts({ serverPosts }) {
         }
     }, [posts])
 
-    console.log({posts})
+    console.log({ posts })
     return <div style={{
 
     }}>
         <div className={styles.container}>
             <div className={styles.chatbox}>
-                
-                <div className={styles.top} style={{
-                    color: '#ddd',
-                    fontFamily: "'bungee-rotated', 'Bungee', cursive"
-                }}>
-                    a2p.dev
-                </div>
 
+                <div className={styles.top}>
+                    <span>
+                        Chat
+                    </span>
+                    <span className={styles.rotated}>
+                        a2p.dev
+                    </span>
+                    <Link href="/dashboard" passHref legacyBehavior >
+                        <span className={styles.link}>Back</span>
+                    </Link>
+                </div>
 
                 <div className={styles.chats}>
                     {[...posts].reverse().map((el, i) => (
                         <div key={el.id} className={i % 2 && styles.mychat}>
                             <div key={el.id} className={styles.post} style={{
-                                    background: i % 2 ? '#4f5d73c7' : '#77b3d4c7'
-                                }}>
+                                background: i % 2 ? '#4f5d73c7' : '#77b3d4c7'
+                            }}>
                                 <div className={styles.timer}>
                                     {getTimer(el.created_at)}
                                 </div>
