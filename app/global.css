@@ -3,6 +3,11 @@
     src: url("../public/fonts/bungee-rotated.otf");
 }
 
+@font-face {
+    font-family: "Luminari";
+    src: url("../public/fonts/Luminari-Regular.ttf");
+}
+
 body {
     background: #20344f;
 
