@@ -1,20 +1,12 @@
 'use client'
 
 import styles from './Message.module.css'
-import { useState, useEffect } from 'react'
-import { useAuth } from '../context/authContext'
+import { useState } from 'react'
+
 import { addMessage } from '../utils/crud'
 
-export default function Message() {
+export default function Message({ author }) {
     const [message, setMessage] = useState('')
-    const { user } = useAuth()
-    const [author, setAuthor] = useState()
-
-    useEffect(() => {
-        user && setAuthor(user?.email || 'anonymous')
-
-        console.log(user)
-    }, [user])
 
     const handleChange = (event) => {
         setMessage(event.target.value)
@@ -25,7 +17,7 @@ export default function Message() {
             e.preventDefault()
             addMessage({
                 title: message,
-                author: author || 'anonymous'
+                author: author
             })
             setMessage('')
         }}>

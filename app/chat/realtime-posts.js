@@ -3,14 +3,21 @@
 import styles from './Chat.module.css'
 import { useState, useEffect } from 'react'
 import supabase from '../../utils/supabase'
+import Link from 'next/link'
+import { useAuth } from '../../context/authContext'
 import { getTimer } from '../../utils/functions'
 import Message from '../../components/Message'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 export default function RealtimePosts({ serverPosts }) {
     const [posts, setPosts] = useState(serverPosts)
-    const router = useRouter()
+    const { user } = useAuth()
+    const [author, setAuthor] = useState()
+
+    useEffect(() => {
+        user && setAuthor(user?.email || 'anonymous')
+
+        console.log(user)
+    }, [user])
 
     useEffect(() => {
         const channel = supabase
@@ -50,7 +57,7 @@ export default function RealtimePosts({ serverPosts }) {
 
                 <div className={styles.chats}>
                     {[...posts].reverse().map((el, i) => (
-                        <div key={el.id} className={i % 2 && styles.mychat}>
+                        <div key={el.id} className={el.author === author && styles.mychat}>
                             <div key={el.id} className={styles.post} style={{
                                 background: i % 2 ? '#4f5d73c7' : '#77b3d4c7'
                             }}>
@@ -72,7 +79,7 @@ export default function RealtimePosts({ serverPosts }) {
                     ))}
                 </div>
 
-                <Message />
+                <Message author={author} />
 
             </div>
         </div>
