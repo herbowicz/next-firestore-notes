@@ -5,7 +5,7 @@ export const formatDate = date => new Date(date?.seconds*1000).toLocaleString("e
 export const getTimer = timestamp => {
     const hours = String(new Date(timestamp).getHours()).padStart(2, '0')
     const minutes = String(new Date(timestamp).getMinutes()).padStart(2, '0')
-    const seconds = String(new Date(timestamp).getSeconds()).padStart(2, '0')
+    // const seconds = String(new Date(timestamp).getSeconds()).padStart(2, '0')
 
-    return hours + ':' + minutes + ':' + seconds
+    return hours + ':' + minutes
 }

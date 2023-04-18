@@ -60,23 +60,25 @@ export default function RealtimePosts({ serverPosts }) {
                 </div>
 
                 <div className={styles.chats}>
-                    {[...posts].reverse().map((el, i) => (
-                        <div key={el.id} className={el?.email === email ? styles.mychat : styles.theirchat}>
-                            <div key={el.id} className={styles.post} style={{
-                                background: el?.email === email ? '#25204F' :'#204B4F'
-                            }}>
-                                <div className={styles.timer}>
-                                    {getTimer(el.created_at)}
-                                </div>
+                    {[...posts].reverse().map((el, i, arr) => (
+                        <div key={el.id} className={el.email === email ? styles.mychat : styles.theirchat}>
+                            <div key={el.id} className={styles.post}>
+                                {el.email !== arr[i + 1]?.email && (
+                                    <div className={styles.timer}>
+                                        {el.email.split('@')[0]} {getTimer(el.created_at)}
+                                    </div>
+                                )}
                                 <div style={{
                                     margin: '0 7px 0 5px'
                                 }}>
                                     <span className={styles.avatar}>
                                         {el.author?.charAt(0)}
                                     </span>
-                                    <span className={styles.title}>
+                                    <div className={styles.title} style={{
+                                        background: el?.email === email ? '#25204F' :'#402733'
+                                    }}>
                                         {el.title}
-                                    </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
