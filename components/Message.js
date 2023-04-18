@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 import { addMessage } from '../utils/crud'
 
-export default function Message({ author }) {
+export default function Message({ author, email }) {
     const [message, setMessage] = useState('')
 
     const handleChange = (event) => {
@@ -17,7 +17,8 @@ export default function Message({ author }) {
             e.preventDefault()
             addMessage({
                 title: message,
-                author: author
+                author,
+                email
             })
             setMessage('')
         }}>

@@ -1,5 +1,6 @@
 import './global.css'
 import { AuthContextProvider } from '../context/authContext'
+import { UserContextProvider } from '../context/authContext'
 
 export const metadata = {
   title: 'a2p',
@@ -12,8 +13,12 @@ export default function RootLayout({ children }) {
       <body>
         <main>
           <AuthContextProvider>
-            <main>
-              {children}
+            {/* <main>
+              <UserContextProvider> */}
+                <main>
+                  {children}
+                {/* </main>
+              </UserContextProvider> */}
             </main>
           </AuthContextProvider>
         </main>

@@ -23,5 +23,3 @@ export const UserContextProvider = ({
         </UserContext.Provider>
     )
 }
-
-export default UserContextProvider

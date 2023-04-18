@@ -3,7 +3,7 @@ import '../styles/style.css'
 import Navbar from '../components/Navbar'
 import { useRouter } from 'next/router'
 import { AuthContextProvider } from '../context/authContext'
-import UserContextProvider from '../context/userContext'
+import { UserContextProvider } from '../context/userContext'
 import ProtectedRoute from '../components/ProtectedRoute'
 
 const noAuthRequired = ['/', '/login', '/signup']

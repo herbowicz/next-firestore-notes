@@ -1,10 +1,11 @@
 import supabase from './supabase'
 
-export const addMessage = async ({ title, author }) => {
+export const addMessage = async ({ title, author, email }) => {
 
     const input = {
         title,
-        author
+        author,
+        email
     }
 
     console.log(input)

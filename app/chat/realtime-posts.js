@@ -11,10 +11,14 @@ import Message from '../../components/Message'
 export default function RealtimePosts({ serverPosts }) {
     const [posts, setPosts] = useState(serverPosts)
     const { user } = useAuth()
-    const [author, setAuthor] = useState()
+    const [author, setAuthor] = useState('')
+    const [email, setEmail] = useState('')
 
     useEffect(() => {
-        user && setAuthor(user?.email || 'anonymous')
+        if (user) {
+            setAuthor(user?.displayName || user?.email || 'Anonymous')
+            setEmail(user?.email)
+        }
 
         console.log(user)
     }, [user])
@@ -36,7 +40,7 @@ export default function RealtimePosts({ serverPosts }) {
         }
     }, [posts])
 
-    console.log({ posts })
+    console.log('email', email, 'author', author)
     return <div style={{
 
     }}>
@@ -57,7 +61,7 @@ export default function RealtimePosts({ serverPosts }) {
 
                 <div className={styles.chats}>
                     {[...posts].reverse().map((el, i) => (
-                        <div key={el.id} className={el.author === author && styles.mychat}>
+                        <div key={el.id} className={el?.author.email === author.email ? styles.mychat : ''}>
                             <div key={el.id} className={styles.post} style={{
                                 background: i % 2 ? '#4f5d73c7' : '#77b3d4c7'
                             }}>
@@ -68,7 +72,7 @@ export default function RealtimePosts({ serverPosts }) {
                                     margin: '0 7px 0 5px'
                                 }}>
                                     <span className={styles.avatar}>
-                                        {el.author.charAt(0)}
+                                        {el.author?.charAt(0)}
                                     </span>
                                     <span className={styles.title}>
                                         {el.title}
@@ -79,7 +83,7 @@ export default function RealtimePosts({ serverPosts }) {
                     ))}
                 </div>
 
-                <Message author={author} />
+                <Message author={author} email={email} />
 
             </div>
         </div>

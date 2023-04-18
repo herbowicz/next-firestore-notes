@@ -1,18 +1,32 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Nav, Navbar, Image } from 'react-bootstrap'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-
+import { doc, getDoc } from 'firebase/firestore'
+import { database } from '../firebase'
 import { useAuth } from '../context/authContext'
 import { useDbUser } from '../context/userContext'
 
 const NavbarComp = () => {
     const { user, logout } = useAuth()
-    const { dbUser } = useDbUser()
+    const { dbUser, setDbUser } = useDbUser()
+    const [ userDetails, setUserDetails ] = useState({})
     const router = useRouter()
-    console.log('USER', user, 'DBUSER', dbUser)
+
+    useEffect(() => {
+        const getUser = async () => {
+            console.log('navbar USER', user)
+            const userData = doc(database, 'users', user?.email)
+            const data = await getDoc(userData)
+
+            setUserDetails(data.data())  // local
+            await setDbUser(data.data())  // backend
+            
+        }
+        user && getUser()
+    }, [setDbUser, user])
 
     return (
         <Navbar bg="light" expand="lg" collapseOnSelect>
@@ -24,7 +38,7 @@ const NavbarComp = () => {
                                 objectFit: 'cover',
                                 borderRadius: '50%',
                             }}
-                            src={dbUser.photoURL || user.photoURL}
+                            src={userDetails?.photoURL || user.photoURL}
                             width='50'
                             height='50'
                             alt='' />}{' '}
@@ -57,7 +71,7 @@ const NavbarComp = () => {
                                 </Link>
                                 <Link
                                     href={{
-                                        pathname: `/u/${dbUser?.nickname || user.displayName}`,
+                                        pathname: `/u/${userDetails?.nickname || user.displayName}`,
                                         // query: { email: user.email }
                                     }}
                                     passHref

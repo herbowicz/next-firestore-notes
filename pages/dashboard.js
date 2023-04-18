@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { database } from '../firebase';
-import { doc, getDoc } from 'firebase/firestore'
+import React, { useState } from 'react'
+
 import { Container, Row, Col } from 'react-bootstrap'
 import NoteOperations from '../components/NoteOperations'
-import { useDbUser } from '../context/userContext'
-import { useAuth } from '../context/authContext'
 
 const Dashboard = () => {
-    const { setDbUser } = useDbUser()
-    const { user } = useAuth()
     const [ID, setID] = useState(null)
     const getSingleNote = (id) => {
         setID(id)
     }
-
-    useEffect(() => {
-        const getDbUser = async () => {
-            if (user) {
-                const userData= doc(database, 'users', user?.email)
-                const data = await getDoc(userData)
-                setDbUser(data.data())
-            }
-        }
-        getDbUser()
-    }, [])
 
     return (
         <>
