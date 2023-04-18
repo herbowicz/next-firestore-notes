@@ -61,9 +61,9 @@ export default function RealtimePosts({ serverPosts }) {
 
                 <div className={styles.chats}>
                     {[...posts].reverse().map((el, i) => (
-                        <div key={el.id} className={el?.email === email ? styles.mychat : ''}>
+                        <div key={el.id} className={el?.email === email ? styles.mychat : styles.theirchat}>
                             <div key={el.id} className={styles.post} style={{
-                                background: el?.email === email ? '#77b3d4c7' :'#4f5d73c7'
+                                background: el?.email === email ? '#25204F' :'#204B4F'
                             }}>
                                 <div className={styles.timer}>
                                     {getTimer(el.created_at)}

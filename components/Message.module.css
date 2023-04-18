@@ -4,7 +4,7 @@
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
-    border: 1px solid #2d9fd9;
+    border: 1px solid chartreuse;
     color: #a0d18c;
     padding: 5px;
     height: 30px;
@@ -13,7 +13,7 @@
 
 input[type="text"].input {
     font-size: 20px;
-    color: #00AA66;
+    color: chartreuse;
     flex-grow: 2;
     border: none;
     outline: none;
@@ -32,15 +32,15 @@ input[type="text"].input:focus {
     height: 40px;
     cursor: pointer;
     background: transparent;
-    color: #00AA66;
-    border-color: #00AA66;
+    color: chartreuse;
+    border-color: chartreuse;
     border-style: solid;
     border-radius: 0 20px 20px 0;
     margin: -5px;
     padding: 0;
 }
 .button:hover {
-    background: #00AA66;
+    background: chartreuse;
     color: white;
     opacity: .7;
 }
