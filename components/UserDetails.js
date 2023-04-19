@@ -37,8 +37,7 @@ export default function UserDetails() {
         setContent({
             nickname: userDetails?.nickname || '',
             about: userDetails?.about || '',
-            role: userDetails?.role || '',
-            photoURL: dbUser.photoURL
+            role: userDetails?.role || ''
         })
     }, [dbUser.photoURL, userDetails])
 
@@ -47,7 +46,10 @@ export default function UserDetails() {
         e.preventDefault()
         const collectionById = doc(database, 'users', user.email)
 
-        const data = {...user, ...content}
+        const data = {
+            ...userDetails,
+            ...content
+        }
 
         updateDoc(collectionById, data)
             .then(() => {
