@@ -1,0 +1,15 @@
+.flowers  {
+    display: flex;
+}
+
+.flower {
+    border: 1px solid orchid;
+}
+
+.sign {
+    font-size: 100px;
+}
+
+.description {
+    color: #333;
+}
