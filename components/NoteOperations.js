@@ -87,7 +87,10 @@ const NoteOperations = ({ getSingleNote, ID }) => {
                                                 <Card.Title className="me-auto">{note.noteTitle}</Card.Title>
                                                 <Card.Text>{formatDate(note.noteModified || note.noteCreated)}</Card.Text>
                                             </Card.Header>
-                                            <Card.Body>{note.noteDesc.substring(0, 160)} [...]</Card.Body>
+                                            <Card.Body>
+                                                <div dangerouslySetInnerHTML={{ __html: note.noteDesc.substring(0, 160) }} />
+                                            </Card.Body>
+                                            
                                         </Card>
                                     </Col>
                                 )
