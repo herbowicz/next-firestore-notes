@@ -25,13 +25,14 @@ export const AuthContextProvider = ({
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
+        const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+            if (authUser) {
                 setUser({
-                    uid: user.uid,
-                    email: user.email,
-                    displayName: user.displayName || user.email,
-                    photoURL: user.photoURL
+                    uid: authUser.uid,
+                    email: authUser.email,
+                    displayName: authUser.displayName || authUser.email,
+                    // get from social only when no photo
+                    photoURL: user?.photoURL || authUser.photoURL
                 })
             } else {
                 setUser(null)
@@ -113,12 +114,8 @@ export const AuthContextProvider = ({
             })
     }
 
-    const updatePhotoURL = url => {
-        setUser({ ...user, photoURL: url })
-    }
-
     return (
-        <AuthContext.Provider value={{ user, login, signup, logout, socialLogin, updatePhotoURL }}>
+        <AuthContext.Provider value={{ user, login, signup, logout, socialLogin }}>
             {loading ? null : children}
         </AuthContext.Provider>
     )

@@ -38,8 +38,9 @@ export default function UserDetails() {
             nickname: userDetails?.nickname || '',
             about: userDetails?.about || '',
             role: userDetails?.role || '',
+            photoURL: dbUser.photoURL
         })
-    }, [userDetails])
+    }, [dbUser.photoURL, userDetails])
 
 
     const updateUser = (e, content) => {

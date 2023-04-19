@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { getStorage, ref, getDownloadURL, listAll, deleteObject } from "firebase/storage";
-import { auth } from '../firebase'
+import { doc, updateDoc } from 'firebase/firestore'
+
+import { auth, database } from '../firebase'
 import { useAuth } from '../context/authContext'
+import { useDbUser } from '../context/userContext'
 import Button from './Button'
 
 const storage = getStorage()
 
 const ShowFiles = () => {
-    const { user, updatePhotoURL } = useAuth()
+    const { user } = useAuth()
+    const { dbUser, setDbUser } = useDbUser()
     const [data, setData] = useState([])
     const [url, setUrl] = useState()
 
@@ -24,7 +28,7 @@ const ShowFiles = () => {
 
     useEffect(() => {
         const fetchImages = async () => {
-            const storageRef = ref(storage, `users/${user?.email}`)
+            const storageRef = user && ref(storage, `users/${user?.email}`)
             const result = await listAll(storageRef);
 
             const urlPromises = result.items.map((imageRef) => getDownloadURL(imageRef));
@@ -40,11 +44,10 @@ const ShowFiles = () => {
         };
 
         loadImages()
-    }, [user.email])
+    }, [user, user?.email])
 
     const selectImage = url => {
         setUrl(url)
-        updatePhotoURL(url)
     }
 
     const deleteImage = (url) => {
@@ -59,13 +62,35 @@ const ShowFiles = () => {
         });
     }
 
+    const updateImage = (e, url) => {
+        e.preventDefault()
+        const collectionById = doc(database, 'users', user.email)
+
+        console.log('nowy url to>>>>>', url, user, dbUser)
+
+        // front
+        setDbUser({...dbUser, photoURL: url})
+
+        //back
+        const data = {...user, photoURL: url}
+        updateDoc(collectionById, data)
+            .then(() => {
+                alert('Profile pic updated!')
+                //window.location.reload()
+            })
+            .catch(err => conosle.log(err))
+    }
+
     return (
         <>
             <p>
 
-                {(data[0] || user.photoURL) && <Image src={ url || user.photoURL || data[0] } alt='' width='300' height='300' />} 
-                
+                {(data[0] || dbUser?.photoURL) && <Image src={ url || dbUser?.photoURL } alt='' width='300' height='300' />} 
+                <Button onClick={e => updateImage(e, url)}>
+                    Set as profile pic
+                </Button>                
             </p>
+
             <div style={{ display: 'flex', flexDirection: 'row' }}>
                 {data?.map((url, i) => {
                     return (

@@ -21,8 +21,8 @@ const NavbarComp = () => {
             const userData = doc(database, 'users', user?.email)
             const data = await getDoc(userData)
 
-            setUserDetails(data.data())  // local
-            await setDbUser(data.data())  // backend
+            setUserDetails(data.data())  // this component
+            await setDbUser(data.data())  // user context
             
         }
         user && getUser()
@@ -38,7 +38,7 @@ const NavbarComp = () => {
                                 objectFit: 'cover',
                                 borderRadius: '50%',
                             }}
-                            src={userDetails?.photoURL || user.photoURL}
+                            src={dbUser?.photoURL}
                             width='50'
                             height='50'
                             alt='' />}{' '}
