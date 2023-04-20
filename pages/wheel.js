@@ -44,7 +44,7 @@ const Wheel = () => {
     ];
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const winning = () => {
+    const getScore = () => {
         const angle = 360 / fields.length
         const win = angle - Math.floor((value % 360) / angle)
         const winPos = win => win === -1 ? 19 : win === 0 ? 20 : win
@@ -54,10 +54,13 @@ const Wheel = () => {
 
     useEffect(() => {
         if (flag) {
-            setScore(winning())
+            setScore(getScore)
         }
-    }, [flag, last, winning])
+    }, [flag, last, getScore])
 
+
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const updateUserPoints = (points) => {
         const c = doc(database, 'users', user.email)
         getDoc(c)
@@ -69,6 +72,14 @@ const Wheel = () => {
             .catch(err => console.log(err))
     }
 
+    useEffect(() => {
+        return () => {
+            console.log('the e-user has left the building with ', total)
+            flag && updateUserPoints(total)
+        };
+    }, [flag, total, updateUserPoints]);
+
+
     const spin = () => {
         console.log('hit')
         setSpinning(true)
@@ -79,12 +90,10 @@ const Wheel = () => {
         setTotal(total + score)
         setFlag(true)
 
-        console.log('total po hicie', total, ' score ', score)
+        console.log('total po hicie', total, ' score ', getScore())
 
         // frontend
-        setDbUser({ ...dbUser, points: total },)
-        // backend
-        updateUserPoints(total)
+        setDbUser({ ...dbUser, points: total })
 
         setTimeout(() => {
             setSpinning(false)
@@ -100,7 +109,7 @@ const Wheel = () => {
             <Row>
                 <h5>{spinning ? 'Spinning ...' : flag ? `Your score is ${score}. ${score > 50 ? 'Well done!' : ''}` : `Try your luck now!`}</h5>
                 {last.length > 0 && <h6>Last: {JSON.stringify(last, null, 2)}</h6>}
-                <h6>Total: {total}</h6>
+                <h6>Total: {total + (spinning ? 0 : score)}</h6>
             </Row>
             <Row>
                 <div className={styles.container}>
