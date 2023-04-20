@@ -13,6 +13,22 @@
   padding-bottom: 100%;
 }
 
+.v, .h {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+.v {
+  width: 50%;
+  height: 700px;
+  border-right: 1px solid yellowgreen;
+}
+.h {
+  height: 50%;
+  border-bottom: 1px solid yellowgreen;
+}
+
 .spin__btn {
   position: absolute;
   top: calc(50% - 40px);

@@ -15,9 +15,9 @@ const Wheel = () => {
     const [spinning, setSpinning] = useState(false)
     const [value, setValue] = useState(0)
     const [total, setTotal] = useState(dbUser?.points || 0)
-    const [score, setScore] = useState()
+    const [score, setScore] = useState(0)
 
-    const time = 5
+    const time = 2
     const fields = useMemo(() => [40, 0, 90, 1, 80, 2, 70, 3, 60, 4, 50, 5, 100, 6, 30, 7, 20, 8, 10, 9], [])
     var colorArray = [
         "#FF6633",
@@ -49,7 +49,7 @@ const Wheel = () => {
         flag && setScore(fields[winPos(win) - 1])
     }, [fields, flag, value])
 
-    const updateUserPoints = useCallback((points) => {
+    const updateUserPoints = (points) => {
         const c = doc(database, 'users', user.email)
         getDoc(c)
             .then(data => data.data())
@@ -58,19 +58,22 @@ const Wheel = () => {
                 console.log('Points updated!')
             })
             .catch(err => console.log(err))
-    }, [user])
+    }
 
     const spin = () => {
+        console.log('hit')
         setSpinning(true)
         const rand = Math.round(Math.random() * 3600)
         setValue(value => value + rand)
 
-        flag && setScore(score)
-        flag && setTotal(total => total + score)
+        setScore(score)
+        setTotal(total + score)
         setFlag(true)
 
+        console.log('total po hicie', total, ' score ', score)
+
         // frontend
-        setDbUser({ ...dbUser, points: total })
+        setDbUser({ ...dbUser, points: total },)
         // backend
         updateUserPoints(total)
 
@@ -78,6 +81,8 @@ const Wheel = () => {
             setSpinning(false)
         }, time * 1000)
     }
+
+    const pointerEvents = spinning ? 'none' : 'auto'
 
     return (
         <Container>
@@ -87,20 +92,23 @@ const Wheel = () => {
                 <h5>{spinning ? 'Spinning ...' : flag ? `Your score is ${score}. ${score > 50 ? 'Well done!' : ''}` : `Try your luck now!`}</h5>
                 <h6>Total: {total}</h6>
             </Row>
-            <Row className={styles.container}>
-                <div className={styles.spin__btn} onClick={spin}>Spin</div>
-                <div className={styles.wheel} style={{ transform: `rotate(${value}deg)`, '--time': time }}>
-                    {fields.map((el, i) => (
-                        <div key={i} className={styles.number} style={{
-                            '--angle': 360 / fields.length,
-                            '--i': i,
-                            '--clr': colorArray[i]
-                        }}>
-                            <span>{el}</span>
-                        </div>
-                    ))}
+            <Row>
+                <div className={styles.container}>
+                    <div className={styles.v}></div>
+                    <div className={styles.h}></div>
+                    <div className={styles.spin__btn} style={{ pointerEvents }} onClick={spin}>Spin</div>
+                    <div className={styles.wheel} style={{ transform: `rotate(${value}deg)`, '--time': time }}>
+                        {fields.map((el, i) => (
+                            <div key={i} className={styles.number} style={{
+                                '--angle': 360 / fields.length,
+                                '--i': i,
+                                '--clr': colorArray[i]
+                            }}>
+                                <span>{el}</span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-
             </Row>
         </Container>
     )
