@@ -14,12 +14,13 @@ const Wheel = () => {
     const [flag, setFlag] = useState(false)
     const [spinning, setSpinning] = useState(false)
     const [value, setValue] = useState(0)
-    const [total, setTotal] = useState(dbUser?.points || 0)
-    const [score, setScore] = useState(0)
+    const [total, setTotal] = useState(dbUser?.points)
+    const [score, setScore] = useState(null)
+    const [last, setLast] = useState([])
 
     const time = 2
     const fields = useMemo(() => [40, 0, 90, 1, 80, 2, 70, 3, 60, 4, 50, 5, 100, 6, 30, 7, 20, 8, 10, 9], [])
-    var colorArray = [
+    const colorArray = [
         "#FF6633",
         "#FFB399",
         "#FF33FF",
@@ -42,12 +43,20 @@ const Wheel = () => {
         "#20344F"
     ];
 
-    useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const winning = () => {
         const angle = 360 / fields.length
         const win = angle - Math.floor((value % 360) / angle)
         const winPos = win => win === -1 ? 19 : win === 0 ? 20 : win
-        flag && setScore(fields[winPos(win) - 1])
-    }, [fields, flag, value])
+        console.log(score, fields[winPos(win) - 1])
+        return fields[winPos(win) - 1]
+    }
+
+    useEffect(() => {
+        if (flag) {
+            setScore(winning())
+        }
+    }, [flag, last, winning])
 
     const updateUserPoints = (points) => {
         const c = doc(database, 'users', user.email)
@@ -66,7 +75,7 @@ const Wheel = () => {
         const rand = Math.round(Math.random() * 3600)
         setValue(value => value + rand)
 
-        setScore(score)
+        score !== null && setLast([score, ...last])
         setTotal(total + score)
         setFlag(true)
 
@@ -90,6 +99,7 @@ const Wheel = () => {
             <hr />
             <Row>
                 <h5>{spinning ? 'Spinning ...' : flag ? `Your score is ${score}. ${score > 50 ? 'Well done!' : ''}` : `Try your luck now!`}</h5>
+                {last.length > 0 && <h6>Last: {JSON.stringify(last, null, 2)}</h6>}
                 <h6>Total: {total}</h6>
             </Row>
             <Row>
