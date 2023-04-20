@@ -94,8 +94,8 @@ const Wheel = () => {
             </Row>
             <Row>
                 <div className={styles.container}>
-                    <div className={styles.v}></div>
-                    <div className={styles.h}></div>
+                    {/* <div className={styles.v}></div>
+                    <div className={styles.h}></div> */}
                     <div className={styles.spin__btn} style={{ pointerEvents }} onClick={spin}>Spin</div>
                     <div className={styles.wheel} style={{ transform: `rotate(${value}deg)`, '--time': time }}>
                         {fields.map((el, i) => (
