@@ -33,15 +33,32 @@ const NavbarComp = () => {
             <Container>
                 <Link href="/" passHref legacyBehavior>
                     <Navbar.Brand>
-                        {user && <Image
-                            style={{
-                                objectFit: 'cover',
-                                borderRadius: '50%',
-                            }}
-                            src={dbUser?.photoURL}
-                            width='50'
-                            height='50'
-                            alt='' />}{' '}
+                        {user && (
+                            <div style={{
+                                display: 'flex',
+
+                            }}>
+                                <Image style={{
+                                        objectFit: 'cover',
+                                        borderRadius: '50%',
+                                    }}
+                                    src={dbUser?.photoURL}
+                                    width='50'
+                                    height='50'
+                                    alt='' 
+                                />
+                                <div style={{
+                                    color: 'chartreuse',
+                                    background: 'midnightblue',
+                                    borderRadius: 10,
+                                    padding: '0 3px',
+                                    fontSize: 14,
+                                    display: 'inline-block',
+                                    margin: '3px 0 0 -15px',
+                                    height: 20,
+                                }}>{dbUser?.points}</div>
+                            </div>
+                        )}
                     </Navbar.Brand>
                 </Link>
                 <div style={{
