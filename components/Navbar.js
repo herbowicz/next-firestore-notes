@@ -12,7 +12,7 @@ import { useDbUser } from '../context/userContext'
 const NavbarComp = () => {
     const { user, logout } = useAuth()
     const { dbUser, setDbUser } = useDbUser()
-    const [ userDetails, setUserDetails ] = useState({})
+    const [userDetails, setUserDetails] = useState({})
     const router = useRouter()
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const NavbarComp = () => {
 
             setUserDetails(data.data())  // this component
             await setDbUser(data.data())  // user context
-            
+
         }
         user && getUser()
     }, [setDbUser, user])
@@ -38,37 +38,48 @@ const NavbarComp = () => {
                                 display: 'flex',
 
                             }}>
-                                <Image style={{
-                                        objectFit: 'cover',
-                                        borderRadius: '50%',
-                                    }}
-                                    src={dbUser?.photoURL}
-                                    width='50'
-                                    height='50'
-                                    alt='' 
-                                />
-                                <div style={{
-                                    color: 'chartreuse',
-                                    background: 'midnightblue',
-                                    borderRadius: 10,
-                                    padding: '0 3px',
-                                    fontSize: 14,
-                                    display: 'inline-block',
-                                    margin: '3px 0 0 -15px',
-                                    height: 20,
-                                }}>{dbUser?.points}</div>
+                                <Link href={{ pathname: `/u/${dbUser?.nickname || user.displayName}` }}
+                                    passHref legacyBehavior>
+                                    <Nav.Link>
+                                        <Image style={{
+                                            objectFit: 'cover',
+                                            borderRadius: '50%',
+                                        }}
+                                            src={dbUser?.photoURL}
+                                            width='50'
+                                            height='50'
+                                            alt=''
+                                        />
+                                        <div style={{
+                                            color: 'chartreuse',
+                                            background: '#20344f',
+                                            borderRadius: 10,
+                                            padding: '0 3px',
+                                            fontSize: 14,
+                                            display: 'inline-block',
+                                            margin: '3px 0 0 -15px',
+                                            height: 20,
+                                        }}>
+                                            {dbUser?.points}
+                                        </div>
+                                    </Nav.Link>
+                                </Link>
                             </div>
                         )}
                     </Navbar.Brand>
                 </Link>
-                <div style={{
-                    display: 'inline-block',
-                    color: '#20344f',
-                    fontSize: '1.5em',
-                    fontFamily: "'bungee-rotated', 'Bungee', cursive"
-                }}>
-                    {'a2p.dev'}
-                </div>
+                <Link href="/" passHref legacyBehavior>
+                    <Nav.Link>
+                        <div style={{
+                            display: 'inline-block',
+                            color: '#20344f',
+                            fontSize: '1.5em',
+                            fontFamily: "'bungee-rotated', 'Bungee', cursive"
+                        }}>
+                            {'a2p.dev'}
+                        </div>
+                    </Nav.Link>
+                </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
@@ -85,15 +96,6 @@ const NavbarComp = () => {
                                 </Link>
                                 <Link href="/wheel" passHref legacyBehavior>
                                     <Nav.Link>Wheel</Nav.Link>
-                                </Link>
-                                <Link
-                                    href={{
-                                        pathname: `/u/${userDetails?.nickname || user.displayName}`,
-                                        // query: { email: user.email }
-                                    }}
-                                    passHref
-                                    legacyBehavior>
-                                    <Nav.Link>Profile</Nav.Link>
                                 </Link>
                                 <Link href="/documents" passHref legacyBehavior>
                                     <Nav.Link>Documents</Nav.Link>
@@ -123,7 +125,7 @@ const NavbarComp = () => {
                     </Nav>
                 </Navbar.Collapse>
             </Container>
-        </Navbar>
+        </Navbar >
     );
 }
 

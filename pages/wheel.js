@@ -11,11 +11,12 @@ const Wheel = () => {
     const { dbUser, setDbUser } = useDbUser()
     const { user } = useAuth()
 
+    const rand = Math.round(Math.random() * 3600)
+
     const [flag, setFlag] = useState(false)
     const [spinning, setSpinning] = useState(false)
-    const [value, setValue] = useState(0)
-    const [total, setTotal] = useState(dbUser?.points)
-    const [score, setScore] = useState(null)
+    const [value, setValue] = useState(rand)
+    const [score, setScore] = useState(dbUser.points)
     const [last, setLast] = useState([])
 
     const time = 2
@@ -43,22 +44,15 @@ const Wheel = () => {
         "#20344F"
     ];
 
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const getScore = () => {
         const angle = 360 / fields.length
         const win = angle - Math.floor((value % 360) / angle)
         const winPos = win => win === -1 ? 19 : win === 0 ? 20 : win
-        console.log(score, fields[winPos(win) - 1])
+        // console.log(score, fields[winPos(win) - 1])
         return fields[winPos(win) - 1]
     }
-
-    useEffect(() => {
-        if (flag) {
-            setScore(getScore)
-        }
-    }, [flag, last, getScore])
-
-
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const updateUserPoints = (points) => {
@@ -73,30 +67,39 @@ const Wheel = () => {
     }
 
     useEffect(() => {
-        return () => {
-            console.log('the e-user has left the building with ', total)
-            flag && updateUserPoints(total)
-        };
-    }, [flag, total, updateUserPoints]);
+        if (flag) {
+            setScore(getScore())
+        }
+        
+    }, [flag, last, getScore])
+
+    useEffect(() => {
+        if (score !== null && flag) {
+            setLast([score, ...last])
+            setDbUser({ ...dbUser, points: dbUser.points + score })
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log('the e-user has left the building with ', dbUser.points)
+        updateUserPoints(dbUser.points)
+
+    }, [flag, dbUser.points, updateUserPoints]);
 
 
     const spin = () => {
         console.log('hit')
         setSpinning(true)
-        const rand = Math.round(Math.random() * 3600)
+
         setValue(value => value + rand)
 
-        score !== null && setLast([score, ...last])
-        setTotal(total + score)
+        console.log('total po hicie', dbUser.points, ' score ', score, getScore())
+
         setFlag(true)
-
-        console.log('total po hicie', total, ' score ', getScore())
-
-        // frontend
-        setDbUser({ ...dbUser, points: total })
 
         setTimeout(() => {
             setSpinning(false)
+            // frontend
         }, time * 1000)
     }
 
@@ -109,7 +112,7 @@ const Wheel = () => {
             <Row>
                 <h5>{spinning ? 'Spinning ...' : flag ? `Your score is ${score}. ${score > 50 ? 'Well done!' : ''}` : `Try your luck now!`}</h5>
                 {last.length > 0 && <h6>Last: {JSON.stringify(last, null, 2)}</h6>}
-                <h6>Total: {total + (spinning ? 0 : score)}</h6>
+                <h6>Total: {dbUser.points + (flag && !spinning ? score : 0)}</h6>
             </Row>
             <Row>
                 <div className={styles.container}>
