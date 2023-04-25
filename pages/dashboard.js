@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-
 import { Container, Row, Col } from 'react-bootstrap'
 import NoteOperations from '../components/NoteOperations'
+import Navbar2 from '../components/Navbar2'
 
 const Dashboard = () => {
     const [ID, setID] = useState(null)
@@ -16,8 +16,7 @@ const Dashboard = () => {
             <link rel="icon" href="/logo.png" />
 
             <Container>
-                <h3>Dashboard</h3>
-                <hr />
+                <Navbar2 title={'Dashboard'}/>
                 <Row>
                     <Col>
                         <NoteOperations getSingleNote={getSingleNote} ID={ID} />
