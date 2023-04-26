@@ -15,10 +15,12 @@ const Shop = () => {
 
     const processPayment = async () => {
         const newCart = cart.map(({ id, name, price, qty }) => ({ id, name, price, qty }))
-        const url = './.netlify/functions/charge'
+        const url = `/api/charge`
 
         const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
         const { data } = await axios.post(url, { cart: newCart })
+
+        console.log('DATA', data)
         await stripe.redirectToCheckout({ sessionId: data.id })
 
     }

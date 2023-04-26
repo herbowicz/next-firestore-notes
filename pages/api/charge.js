@@ -1,8 +1,8 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
-exports.handler = async (event, context) => {
+export default async function handler(req, res) {
 
-    const { cart } = JSON.parse(event.body)
+    const { body: { cart } } = req
 
     const lineItems = cart.map((product) => ({
         price_data: {
@@ -25,10 +25,7 @@ exports.handler = async (event, context) => {
         cancel_url: `${process.env.URL}/cancel`
     })
 
-    return {
-        statusCode: 200,
-        body: JSON.stringify({
-            id: session.id
-        })
-    }
+    return res.status(200).json({
+        id: session.id
+    })
 }
