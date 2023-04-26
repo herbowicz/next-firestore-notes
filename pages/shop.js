@@ -7,28 +7,25 @@ const Shop = () => {
     const cart = [{
         id: 1,
         name: "Multisport",
-        description: "Połowa opłaty za 2 karty Multisport dla dzieci",
+        description: "Opłata 40 zł za Karty Multisport",
         slug: "/products/multisport",
-        price: 4000,
-        qty: 1
+        price: 4000, // in pennies
+        quantity: 1
     }]
 
     const processPayment = async () => {
-        const newCart = cart.map(({ id, name, price, qty }) => ({ id, name, price, qty }))
         const url = `${process.env.NEXT_PUBLIC_URL}/api/charge`
 
         const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
-        const { data } = await axios.post(url, { cart: newCart })
-
+        const { data } = await axios.post(url, { cart })
         console.log('DATA', data)
-        await stripe.redirectToCheckout({ sessionId: data.id })
 
+        await stripe.redirectToCheckout({ sessionId: data.id })
     }
 
     return (
         <div className="container">
             <h3>Shop</h3>
-            <hr />
             <p>
                 <span>Buy your favourite items</span>
             </p>

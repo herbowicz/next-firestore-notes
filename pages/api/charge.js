@@ -10,19 +10,17 @@ export default async function handler(req, res) {
             product_data: {
                 name: product.name,
             },
-            unit_amount: product.price
+            unit_amount: product.price,
         },
-        quantity: product.qty,
+        quantity: product.quantity,
     }))
-
-    console.log(lineItems)
 
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card', 'p24', 'blik'],
         line_items: lineItems, 
         mode: 'payment',
         success_url: `${process.env.NEXT_PUBLIC_URL}/success`,
-        cancel_url: `${process.env.NEXT_PUBLIC_URL}/cancel`
+        cancel_url: `${process.env.NEXT_PUBLIC_URL}/cancel`,
     })
 
     return res.status(200).json({
