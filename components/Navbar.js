@@ -91,6 +91,9 @@ const NavbarComp = () => {
                                 <Link href="/chat" passHref legacyBehavior>
                                     <Nav.Link>Chat</Nav.Link>
                                 </Link>
+                                <Link href="/shop" passHref legacyBehavior>
+                                    <Nav.Link>Shop</Nav.Link>
+                                </Link>
                                 <Link href="/records" passHref legacyBehavior>
                                     <Nav.Link>Records</Nav.Link>
                                 </Link>
@@ -98,7 +101,7 @@ const NavbarComp = () => {
                                     <Nav.Link>Wheel</Nav.Link>
                                 </Link>
                                 <Link href="/documents" passHref legacyBehavior>
-                                    <Nav.Link>Documents</Nav.Link>
+                                    <Nav.Link>Docs</Nav.Link>
                                 </Link>
                                 <Link href="/edit" passHref legacyBehavior>
                                     <Nav.Link>Edit</Nav.Link>
