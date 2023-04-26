@@ -21,8 +21,8 @@ export default async function handler(req, res) {
         payment_method_types: ['card', 'p24', 'blik'],
         line_items: lineItems, 
         mode: 'payment',
-        success_url: `${process.env.URL}/success`,
-        cancel_url: `${process.env.URL}/cancel`
+        success_url: `${process.env.NEXT_PUBLIC_URL}/success`,
+        cancel_url: `${process.env.NEXT_PUBLIC_URL}/cancel`
     })
 
     return res.status(200).json({
