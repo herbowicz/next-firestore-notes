@@ -26,7 +26,7 @@ const Home = () => {
 				color: '#20344f'
 			}}>
 				<div>
-					<h1 className="text-center">Hello!</h1>
+					<h1 className="text-center">Hi!</h1>
 					<p className="text-center">{user ? `Welcome ${user.displayName || user.ncik}`: `Login or Signup to continue...`}</p>
 				</div>
 			</div>
