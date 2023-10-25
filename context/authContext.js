@@ -112,7 +112,7 @@ export const AuthContextProvider = ({
                     router.push('/dashboard')
                 }
             })
-    });
+    }, [router]);
 
     const obj = useMemo(() => ({ user, login, signup, logout, socialLogin }), [socialLogin, user]); // value is cached
 
