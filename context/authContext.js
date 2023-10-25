@@ -69,7 +69,7 @@ export const AuthContextProvider = ({
         }
     }
 
-    const socialLogin = (e) => {
+    const socialLogin = useCallback((e) => {
         const { target: { name } } = e;
         let provider = getProvider(name)
 
@@ -112,10 +112,12 @@ export const AuthContextProvider = ({
                     router.push('/dashboard')
                 }
             })
-    }
+    });
+
+    const obj = useMemo(() => ({ user, login, signup, logout, socialLogin }), [socialLogin, user]); // value is cached
 
     return (
-        <AuthContext.Provider value={{ user, login, signup, logout, socialLogin }}>
+        <AuthContext.Provider value={obj}>
             {loading ? null : children}
         </AuthContext.Provider>
     )
