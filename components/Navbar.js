@@ -130,7 +130,7 @@ const NavbarComp = () => {
                     </Nav>
                 </Navbar.Collapse>
             </Container>
-        </Navbar >
+        </Navbar>
     );
 }
 
