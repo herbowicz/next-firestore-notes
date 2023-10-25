@@ -83,11 +83,12 @@ const NavbarComp = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
-                        {user ? (
+                        <>
+                            <Link href="/dashboard" passHref legacyBehavior>
+                                <Nav.Link>Dashboard</Nav.Link>
+                            </Link> 
+                            {user ? (
                             <>
-                                <Link href="/dashboard" passHref legacyBehavior>
-                                    <Nav.Link>Dashboard</Nav.Link>
-                                </Link>
                                 <Link href="/chat" passHref legacyBehavior>
                                     <Nav.Link>Chat</Nav.Link>
                                 </Link>
